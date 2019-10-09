@@ -1,0 +1,23 @@
+/*.bottone {*/
+/*  text-align: center;*/
+/*  font-family: Droid Sans, Arial;*/
+/*  overflow: hidden;*/
+/*  cursor:pointer;*/
+
+/*  border-width: 0;*/
+/*  outline: none;*/
+/*  border-radius: 2px;*/
+/*  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);*/
+
+/*  background-position: center center;*/
+
+/*  !*transition: background-color .3s;*!*/
+/*}*/
+.bottone{
+  /*background-color: #FEFEFE;*/
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  background-position: center center;
+}
+.icon-align {
+  vertical-align: text-bottom;
+}

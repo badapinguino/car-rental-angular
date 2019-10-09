@@ -1,0 +1,12 @@
+<br>
+<h3 class="text-primary">Benvenuto {{currentUser.nome}} {{currentUser.cognome}}</h3>
+<br><br>
+<app-custom-button [buttonProperties]="creaUtentePulsanteProprieta"></app-custom-button><br><br>
+<!--<div *ngIf="listaUtenti?inizializzaListaUtentiTabella():false">;</div>-->
+<app-custom-table *ngIf="listaUtenti"
+                  [listaElementi]="listaUtenti"
+                  [listaHeader]="listaHeaderUtenti"
+                  [listaBottoni]="listaPulsanti"
+                  [listaHeaderBottoni]="listaHeaderPulsanti"
+                  campoIdElemento="codiceFiscale">
+</app-custom-table>

@@ -1,0 +1,100 @@
+<!--<app-custom-button [buttonProperties]="buttonProperties5" (risultatoRichiesta)="getRisultato($event)"></app-custom-button>-->
+
+
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <div class="form-check form-check-inline">
+
+      <label *ngFor="let head of getHeaderKeys(listaHeader); let i = index"
+             class="form-check-label" for="radio-{{head}}">
+        <div class="col">
+          <input type="radio" class="form-check-input" id="radio-{{head}}" value="{{head}}" [(ngModel)]="radioSelected">
+          {{getHeaderLabels(listaHeader)[i]}}
+        </div>
+      </label>
+    </div>
+  </div>
+  <!-- barra di ricerca sulla tabella -->
+  <div class="form-group col-md-6">
+    <input type="text" class="form-control" id="ricercaSuTabella" (keyup)="filterSearch()"
+           placeholder="Cerca nella tabella..." [(ngModel)]="inputUtente">     <!--{{radioSelected}}-->
+  </div>
+</div>
+
+
+
+
+<!--<form>-->
+<!--  <div class="form-group">-->
+<!--    <div class="input-group">-->
+<!--&lt;!&ndash;      <div class="input-group-addon"><i class="material-icons">search</i></div>&ndash;&gt;-->
+<!--      <input type="text" class="form-control" placeholder="Cerca nella tabella" name="search" [(ngModel)]="filter">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+<table class="table table-striped table-bordered">
+<!--    <div class="row header">-->
+    <thead>
+      <tr>
+        <th (click)="sort(getHeaderKeys(listaHeader)[i])" *ngFor="let head of getHeaderLabels(listaHeader); let i = index" scope="col" class="text-center">
+          {{head}}<!--{{getHeaderKeys()[i]}}-->
+          <!--▼ ▲-->
+<!--          <span class="glyphicon sort-icon" *ngIf="key =='k'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>-->
+          <span *ngIf="key == getHeaderKeys(listaHeader)[i]" [hidden]="reverse"><i class="material-icons md-18 align-bottom">keyboard_arrow_down</i></span>
+          <span *ngIf="key == getHeaderKeys(listaHeader)[i]" [hidden]="!reverse"><i class="material-icons md-18 align-bottom">keyboard_arrow_up</i></span>
+        </th>
+        <th *ngFor="let headButton of getHeaderLabels(listaHeaderBottoni)" class="text-center">
+          {{headButton}}
+        </th>
+      </tr>
+    </thead>
+<!--    </div>-->
+  <tbody>
+    <tr *ngFor="let elemento of listaElementiSliced"> <!-- | pipeOrderBy: key : reverse -->
+      <td *ngFor="let h of getHeaderKeys(listaHeader)" class="text-center">
+        {{_.get(elemento, h, '')}}
+      </td>
+      <td *ngFor="let button of listaBottoni" class="text-center">
+        <app-custom-button [buttonProperties]="button"
+                           [elementoCliccato]="elemento"
+                           [nomeCampoId]="campoIdElemento"
+                           [id]="elemento[campoIdElemento]">
+          <!--(click)="buttonClicked($event)"-->
+        </app-custom-button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Paginazione -->
+<div class="btn-toolbar" role="toolbar" style="margin: 0;">
+  <div class="btn-group col">
+    <label style="margin-top:10px">Page {{numeroPaginaAttuale}}/{{numeroPagineTotale}}</label>
+  </div>
+  <div class="col">
+<!--    <label for="pageSize">Elementi per pagina</label>-->
+    <select class="custom-select" style="width: auto" name="pageSize" id="pageSize" [(ngModel)]="elementiPerPagina" (ngModelChange)="operationsOnChangeOnInit()">
+      <option [ngValue]="2">2 Elementi per pagina</option>
+      <option [ngValue]="4">4 Elementi per pagina</option>
+      <option [ngValue]="6">6 Elementi per pagina</option>
+      <option [ngValue]="8">8 Elementi per pagina</option>
+      <option [ngValue]="10">10 Elementi per pagina</option>
+      <option [ngValue]="15">15 Elementi per pagina</option>
+      <option [ngValue]="20">20 Elementi per pagina</option>
+    </select>
+  </div>
+  <div class="btn-group float-right col-4">
+    <ul class="pagination" >
+      <li class="page-link" [ngClass]="{'disabled': (numeroPaginaAttuale == 1 || numeroPagineTotale == 0)}" >
+        <a  (click)="prevPage()" href="#"><i class="material-icons md-18 align-bottom">arrow_back</i></a>
+      </li>
+      <li class="page-item" *ngFor="let page of arrayNumeriPagina"  [ngClass]="{'active': (numeroPaginaAttuale == page)}">
+        <a class="page-link" (click)="setPage(page)" href="#" >{{page}}</a>
+      </li>
+      <li class="page-link" [ngClass]="{'disabled': (numeroPaginaAttuale == numeroPagineTotale || numeroPagineTotale == 0)}" >
+        <a  (click)="nextPage()" href="#"><i class="material-icons md-18 align-bottom">arrow_forward</i></a>
+      </li>
+    </ul>
+  </div>
+</div>
