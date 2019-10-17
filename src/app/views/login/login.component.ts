@@ -83,9 +83,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
-          this.error = error;
-          console.log(error);
-          console.log(this.error);
+          this.error = error + 'Codice fiscale o password sbagliati.';
           this.loading = false;
         });
   }

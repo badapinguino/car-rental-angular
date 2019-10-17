@@ -6,7 +6,7 @@ import { CustomButtonComponent } from './custom-components/custom-button/custom-
 import { CustomTableComponent } from './custom-components/custom-table/custom-table.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PipeOrderByPipe } from './custom-components/custom-table/pipe-order-by.pipe';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RestApiRequests} from './services/rest-api-requests';
 import {RouterModule} from '@angular/router';
 import {RoutingModuleModule} from './routing/routing-module/routing-module.module';
@@ -16,6 +16,8 @@ import { NavBarComponent } from './custom-components/nav-bar/nav-bar.component';
 import { LoginComponent } from './views/login/login.component';
 import { HomePageComponent } from './views/home-page/home-page.component';
 import { CreaModificaUtenteComponent } from './views/crea-modifica-utente/crea-modifica-utente.component';
+import {ErrorInterceptor} from './interceptors/error-interceptor';
+import {JwtInterceptor} from './interceptors/jwt-interceptor';
 // import {fakeBackendProvider} from './interceptors/fake-backend';
 
 // used to create fake backend
@@ -44,6 +46,9 @@ import { CreaModificaUtenteComponent } from './views/crea-modifica-utente/crea-m
     // including into imports
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
     // provider used to create fake backend
     // fakeBackendProvider,
     RestApiRequests

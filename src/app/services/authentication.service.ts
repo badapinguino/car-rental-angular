@@ -11,12 +11,18 @@ export class AuthenticationService {
   private currentUserSuperuserSubject: BehaviorSubject<any>;
   public currentUserSuperuser: Observable<any>;
 
+  private currentJwtTokenSubject: BehaviorSubject<any>;
+  public currentJwtToken: Observable<any>;
+
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
 
     this.currentUserSuperuserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUserSuperuser'));
     this.currentUserSuperuser = this.currentUserSuperuserSubject.asObservable();
+
+    this.currentJwtTokenSubject = new BehaviorSubject<any>(localStorage.getItem('currentJwtToken'));
+    this.currentJwtToken = this.currentJwtTokenSubject.asObservable();
   }
 
   public get currentUserValue() {
@@ -49,29 +55,41 @@ export class AuthenticationService {
   }
 
   login(codiceFiscale, password) {
-    // return this.http.post<any>(`https://7bc40c7b-99da-48af-b5bb-acd4ef31eb79.mock.pstmn.io/login`, { username, password })
-    // // http://localhost:4000/users/authenticate
-    // // https://7bc40c7b-99da-48af-b5bb-acd4ef31eb79.mock.pstmn.io/login
-    //   .pipe(map(user => {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('currentUser', JSON.stringify(user));
-    //     this.currentUserSubject.next(user);
-    //     return user;
-    //   }));
 
-    return this.http.get<any>(`http://localhost:3000/utenti?codiceFiscale=` + codiceFiscale + '&password=' + password)
+    // const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+
+    const body: any = {
+      "username": codiceFiscale,
+      "password": password
+    };
+
+    // body = JSON.parse(body + '');
+    console.log(body);
+
+    this.http.post<any>(
+      'http://localhost:8080/login',
+      body,
+      // config
+    ).pipe( map(token => {
+        localStorage.setItem('currentJwtToken', token.jwt);
+      }
+    ));
+
+    // TODO: cambiare la login con l'endpoint di login, e poi tenere la get per avere l'utente da inserire in currentUser
+    return this.http.get<any>(`http://localhost:8080/utenti/` + codiceFiscale ) // + '&password=' + password
       // .pipe(
       //   retry(1),
       //   catchError(this.handleError)
       // );
       .pipe(map(user => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('currentUser', JSON.stringify(user[0]));
-      this.currentUserSubject.next(user[0]);
-      localStorage.setItem('currentUserSuperuser', user[0].superuser);
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user[0]));
+        this.currentUserSubject.next(user[0]);
+        localStorage.setItem('currentUserSuperuser', user[0].superuser);
 
-      return user;
-  }));
+        return user;
+        }
+      ));
   }
 
   logout() {
@@ -81,5 +99,8 @@ export class AuthenticationService {
 
     localStorage.removeItem('currentUserSuperuser');
     this.currentUserSuperuserSubject.next(null);
+
+    localStorage.removeItem('currentJwtToken');
+    this.currentJwtTokenSubject.next(null);
   }
 }
