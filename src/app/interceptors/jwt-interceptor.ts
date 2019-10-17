@@ -10,10 +10,11 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add auth header with jwt if user is logged in and request is to api url
     const currentUser = this.authenticationService.currentUserValue;
-    const currentJwtToken = this.authenticationService.currentJwtToken;
+    const currentJwtToken = this.authenticationService.currentJwtTokenValue;
     const isLoggedIn = currentUser && currentUser.token;
     const isApiUrl = request.url.startsWith('http://localhost:8080/api/'); // o forse solo /api/    ?
     if (isLoggedIn && isApiUrl) {
+      console.log('QUA NON CI DOVREBBE PASSARE IL LOGIN');
       request = request.clone({
         setHeaders: {
           'X-Auth' : `${currentJwtToken}`
@@ -21,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
     request = request.clone({
-      withCredentials: true
+      withCredentials: false
     });
 
     return next.handle(request);

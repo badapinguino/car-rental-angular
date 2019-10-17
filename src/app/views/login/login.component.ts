@@ -66,17 +66,23 @@ export class LoginComponent implements OnInit {
           // data = JSON.parse(data + '');
           // console.log(data);
           console.log(data);
-          if (data.error) {
+          if (data != null && data.jwt != null) {
+            this.authenticationService.impostaUtenteLocalStorage(this.f.codiceFiscale.value).subscribe(
+              utente => {console.log(utente);
+                         this.router.navigate([this.returnUrl]);
+              }
+            );
+          } else if (data.error) {
             this.error = data.error;
             this.loading = false;
             this.authenticationService.logout();
-          } else if (data.length === 0 || data[0] === undefined || data[0] === null) {
+          } else if (data.length === 0 || data === undefined || data === null) {
             this.error = 'Codice fiscale o password sbagliate';
             this.loading = false;
             this.authenticationService.logout();
-          } else if (data[0].codiceFiscale === this.f.codiceFiscale.value && data[0].password_utente === this.f.password.value) {
+          }/* else if (data[0].codiceFiscale === this.f.codiceFiscale.value && data[0].password_utente === this.f.password.value) {
             this.router.navigate([this.returnUrl]);
-          } else {
+          }*/ else {
             this.error = 'Codice fiscale o password sbagliate';
             this.loading = false;
             this.authenticationService.logout();

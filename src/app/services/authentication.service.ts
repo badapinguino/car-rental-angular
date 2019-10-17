@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
+import {Utente} from '../model/utente';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -33,6 +34,10 @@ export class AuthenticationService {
     return this.currentUserSuperuserSubject.value;
   }
 
+  public get currentJwtTokenValue() {
+    return this.currentJwtTokenSubject.value;
+  }
+
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
@@ -54,42 +59,51 @@ export class AuthenticationService {
     return throwError(errorMessage);
   }
 
-  login(codiceFiscale, password) {
+  impostaUtenteLocalStorage(codiceFiscale): Observable<Utente> {
+    return this.http.get<any>(`http://localhost:8080/api/utenti/` + codiceFiscale ) // + '&password=' + password
+    // .pipe(
+    //   retry(1),
+    //   catchError(this.handleError)
+    // );
+      .pipe(map(user => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUserSuperuser', user.superuser);
+
+          console.log('CI PASSA USER GET');
+
+          return user;
+        }
+      ));
+  }
+
+  login(codiceFiscale, password): Observable<any> {
 
     // const config = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
     const body: any = {
-      "username": codiceFiscale,
-      "password": password
+      username: codiceFiscale,
+      password
     };
 
     // body = JSON.parse(body + '');
     console.log(body);
 
-    this.http.post<any>(
+    return this.http.post<any>(
       'http://localhost:8080/login',
-      body,
+      body
       // config
-    ).pipe( map(token => {
+    ).pipe(
+      map(token => {
+        console.log('QUA CI PASSA TOKEN');
+        console.log(token.jwt);
         localStorage.setItem('currentJwtToken', token.jwt);
-      }
-    ));
-
-    // TODO: cambiare la login con l'endpoint di login, e poi tenere la get per avere l'utente da inserire in currentUser
-    return this.http.get<any>(`http://localhost:8080/utenti/` + codiceFiscale ) // + '&password=' + password
-      // .pipe(
-      //   retry(1),
-      //   catchError(this.handleError)
-      // );
-      .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user[0]));
-        this.currentUserSubject.next(user[0]);
-        localStorage.setItem('currentUserSuperuser', user[0].superuser);
-
-        return user;
         }
-      ));
+      ),
+      catchError(this.handleError)
+    );
+    // TODO: cambiare la login con l'endpoint di login, e poi tenere la get per avere l'utente da inserire in currentUser
   }
 
   logout() {

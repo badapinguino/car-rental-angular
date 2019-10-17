@@ -17,9 +17,7 @@ export class NavBarComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log(this.currentUser);
     this.authenticationService.currentUserSuperuser.subscribe(superuser => this.currentUserSuperuser = superuser);
-    console.log(this.currentUserSuperuser);
   }
 
   ngOnInit() {
