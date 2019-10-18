@@ -24,14 +24,14 @@ export class UtentiService {
   };
 
   selezionaTuttiUtenti(): Observable<any[]> {
-    return this.http.get<Utente[]>('http://localhost:3000/utenti')
+    return this.http.get<Utente[]>('http://localhost:8080/api/utenti')
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  selezionaUtente(codiceFiscale: string): Observable<Utente[]> {
-    return this.http.get<Utente[]>('http://localhost:3000/utenti?codiceFiscale=' + codiceFiscale)
+  selezionaUtente(codiceFiscale: string): Observable<Utente> {
+    return this.http.get<Utente>('http://localhost:8080/api/utenti/' + codiceFiscale)
       .pipe(
         catchError(this.handleError)
       );
@@ -52,8 +52,9 @@ export class UtentiService {
   }
 
   salvaUtente(utente: Utente): Observable<Utente> {
-    this.generaId();
-    return this.http.post<Utente>('http://localhost:3000/utenti', JSON.stringify(utente), this.httpOptions)
+    // this.generaId(); CONTROLLARE QUESTO
+    console.log(utente);
+    return this.http.post<Utente>('http://localhost:8080/api/utenti', JSON.stringify(utente), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -64,8 +65,9 @@ export class UtentiService {
     this.id = Math.floor(Math.random() * 1000000);
   }
 
+  // TODO: da rimuovere perché assieme a salva
   aggiornaUtente(utente: Utente): Observable<Utente> {
-    return this.http.put<Utente>('http://localhost:3000/utenti/' + utente.id, JSON.stringify(utente), this.httpOptions)
+    return this.http.put<Utente>('http://localhost:8080/api/utenti/' + utente.id, JSON.stringify(utente), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

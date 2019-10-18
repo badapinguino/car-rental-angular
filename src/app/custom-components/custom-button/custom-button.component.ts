@@ -61,11 +61,12 @@ export class CustomButtonComponent implements OnInit {
         }
       }
       if (risultato != null) {
-        risultato.subscribe((data: {}) => {
-          // console.log(data);
-          console.log(JSON.parse(data + ''));
-          this.risultato = JSON.parse(data + '');
+        risultato.subscribe(data => {
+          console.log(data);
+          // console.log(JSON.parse(data + ''));
+          this.risultato = data;
           this.risultatoRichiesta.emit(this.risultato);
+          // window.location.reload();
           // const something = window.open('data:text/html,' + encodeURIComponent(this.risultatoRichiesta),
           //   '_blank');
           // something.focus();

@@ -5,7 +5,7 @@
 <!--      <li class="nav-item">-->
 <!--        <a class="nav-link register-custom" routerLink="/tabella" [routerLinkActive]="['active']">Tabella</a>-->
 <!--      </li>-->
-      <ul *ngIf="currentUserSuperuser" class="navbar-nav mr-auto">
+      <ul *ngIf="currentUser.superuser" class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link register-custom" routerLink="/homePage" [routerLinkActive]="['active']">Home Page</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/parcoAuto" [routerLinkActive]="['active']">Parco Auto</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/codiciSconto" [routerLinkActive]="['active']">Codici Sconto</a></li>
@@ -19,7 +19,7 @@
           </div>
         </li>
       </ul>
-      <ul *ngIf="!currentUserSuperuser" class="navbar-nav mr-auto">
+      <ul *ngIf="!currentUser.superuser" class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" routerLink="/homePage" [routerLinkActive]="['active']">Home Page</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/parcoAuto" [routerLinkActive]="['active']">Parco Auto</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/multeUtente?codiceFiscaleUtenteConMulte={{currentUser.codiceFiscale}}" [routerLinkActive]="['active']">Multe</a></li>

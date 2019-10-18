@@ -9,8 +9,8 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 // booleano per sapere se superuser l'utente loggato
-  private currentUserSuperuserSubject: BehaviorSubject<any>;
-  public currentUserSuperuser: Observable<any>;
+//   private currentUserSuperuserSubject: BehaviorSubject<any>;
+//   public currentUserSuperuser: Observable<any>;
 
   private currentJwtTokenSubject: BehaviorSubject<any>;
   public currentJwtToken: Observable<any>;
@@ -19,8 +19,8 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
 
-    this.currentUserSuperuserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUserSuperuser'));
-    this.currentUserSuperuser = this.currentUserSuperuserSubject.asObservable();
+    // this.currentUserSuperuserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUserSuperuser'));
+    // this.currentUserSuperuser = this.currentUserSuperuserSubject.asObservable();
 
     this.currentJwtTokenSubject = new BehaviorSubject<any>(localStorage.getItem('currentJwtToken'));
     this.currentJwtToken = this.currentJwtTokenSubject.asObservable();
@@ -30,9 +30,9 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  public get currentUserSuperuserValue() {
-    return this.currentUserSuperuserSubject.value;
-  }
+  // public get currentUserSuperuserValue() {
+  //   return this.currentUserSuperuserSubject.value;
+  // }
 
   public get currentJwtTokenValue() {
     return this.currentJwtTokenSubject.value;
@@ -69,9 +69,8 @@ export class AuthenticationService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
-          localStorage.setItem('currentUserSuperuser', user.superuser);
-
-          console.log('CI PASSA USER GET');
+          // localStorage.setItem('currentUserSuperuser', user.superuser);
+          // this.currentUserSuperuserSubject.next(user);
 
           return user;
         }
@@ -88,7 +87,6 @@ export class AuthenticationService {
     };
 
     // body = JSON.parse(body + '');
-    console.log(body);
 
     return this.http.post<any>(
       'http://localhost:8080/login',
@@ -96,14 +94,13 @@ export class AuthenticationService {
       // config
     ).pipe(
       map(token => {
-        console.log('QUA CI PASSA TOKEN');
-        console.log(token.jwt);
-        localStorage.setItem('currentJwtToken', token.jwt);
+        localStorage.setItem('currentJwtToken', JSON.stringify(token.jwt));
+        this.currentJwtTokenSubject.next(token.jwt);
+        return token;
         }
       ),
       catchError(this.handleError)
     );
-    // TODO: cambiare la login con l'endpoint di login, e poi tenere la get per avere l'utente da inserire in currentUser
   }
 
   logout() {
@@ -111,8 +108,8 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
 
-    localStorage.removeItem('currentUserSuperuser');
-    this.currentUserSuperuserSubject.next(null);
+    // localStorage.removeItem('currentUserSuperuser');
+    // this.currentUserSuperuserSubject.next(null);
 
     localStorage.removeItem('currentJwtToken');
     this.currentJwtTokenSubject.next(null);

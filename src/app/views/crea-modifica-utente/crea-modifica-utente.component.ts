@@ -17,7 +17,7 @@ export class CreaModificaUtenteComponent implements OnInit {
   private submitted = false;
   creaUtenteButtonProperties: CustomButtonProperties;
   error: string;
-  private utenteGiaEsistente: Utente[];
+  private utenteGiaEsistente: Utente;
   private successMessage: string;
   private codiceFiscaleValidation: string;
   private warningMessage: string;
@@ -42,14 +42,15 @@ export class CreaModificaUtenteComponent implements OnInit {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtenteDaModificare)
         .subscribe(data => {
           this.utenteForm = this.formBuilder.group({
-            nome: [data[0].nome, [Validators.required, Validators.maxLength(80)]],
-            cognome: [data[0].cognome, [Validators.required, Validators.maxLength(80)]],
-            codiceFiscale: [{value: data[0].codiceFiscale, disabled: true},
+            nome: [data.nome, [Validators.required, Validators.maxLength(80)]],
+            cognome: [data.cognome, [Validators.required, Validators.maxLength(80)]],
+            codiceFiscale: [{value: data.codiceFiscale, disabled: true},
               [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
-            password_utente: [data[0].password_utente, [Validators.required, Validators.maxLength(42)]],
-            dataNascita: [data[0].dataNascita, Validators.required],
-            superuser: [data[0].superuser],
-            immagine: [data[0].immagine]
+            // password: [data.password, [Validators.required, Validators.maxLength(42)]],
+            password: ['', [Validators.required]],
+            dataNascita: [data.dataNascita, Validators.required],
+            superuser: [data.superuser],
+            immagine: [data.immagine]
           });
         });
       this.creaUtenteButtonProperties = {
@@ -68,7 +69,7 @@ export class CreaModificaUtenteComponent implements OnInit {
         nome: ['', [Validators.required, Validators.maxLength(80)]],
         cognome: ['', [Validators.required, Validators.maxLength(80)]],
         codiceFiscale: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
-        password_utente: ['', [Validators.required, Validators.maxLength(42)]],
+        password: ['', [Validators.required, Validators.maxLength(42)]],
         dataNascita: ['', Validators.required],
         superuser: [false],
         immagine: [null]
@@ -98,40 +99,36 @@ export class CreaModificaUtenteComponent implements OnInit {
     this.utentiService.selezionaUtente(this.f.codiceFiscale.value + '')
       .subscribe( data => {
         this.utenteGiaEsistente = data;
-        console.log(this.utenteGiaEsistente);
-        if (this.utenteGiaEsistente.length > 0) {
-          const utenteConId: Utente = {
+        let utente: Utente;
+        if (this.utenteGiaEsistente != null) {
+          utente = {
             nome: this.f.nome.value,
             cognome: this.f.cognome.value,
             dataNascita: this.f.dataNascita.value,
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
-            password_utente: this.f.password_utente.value,
-            id: data[0].id
+            password: this.f.password.value,
+            id: data.id
           };
-          this.utentiService.aggiornaUtente(utenteConId).subscribe(
-            dati => {
-              this.warningMessage =
-                'Esiste già un utente con il codice fiscale specificato, pertanto l\'utente non è stato aggiunto ma aggiornato';
-              console.log(dati);
-            },
-            error => {
-              this.error = error;
-              console.log(this.error);
-            }
-          );
-
-          return;
+        } else {
+          utente = {
+            nome: this.f.nome.value,
+            cognome: this.f.cognome.value,
+            dataNascita: this.f.dataNascita.value,
+            codiceFiscale: this.f.codiceFiscale.value,
+            superuser: this.f.superuser.value,
+            password: this.f.password.value
+          };
         }
 
-        const utente: Utente = {
-          nome: this.f.nome.value,
-          cognome: this.f.cognome.value,
-          dataNascita: this.f.dataNascita.value,
-          codiceFiscale: this.f.codiceFiscale.value,
-          superuser: this.f.superuser.value,
-          password_utente: this.f.password_utente.value
-        };
+        // const utente: Utente = {
+        //   nome: this.f.nome.value,
+        //   cognome: this.f.cognome.value,
+        //   dataNascita: this.f.dataNascita.value,
+        //   codiceFiscale: this.f.codiceFiscale.value,
+        //   superuser: this.f.superuser.value,
+        //   password: this.f.password_utente.value
+        // };
 
         this.utentiService.salvaUtente(utente)
           .pipe(first())
@@ -142,7 +139,6 @@ export class CreaModificaUtenteComponent implements OnInit {
             },
             error => {
               this.error = error;
-              console.log(error);
               console.log(this.error);
             });
 
@@ -153,7 +149,7 @@ export class CreaModificaUtenteComponent implements OnInit {
     this.codiceFiscaleValidationTrue = false;
     this.utentiService.selezionaUtente(codiceFiscaleValue)
       .subscribe( data => {
-        if (data.length > 0) {
+        if (data != null) {
           // TODO controllare perché non mi fa vedere il messaggio
           // probabilmente perché la richiesta la fa dopo aver aggiornato l'elemento nella UI
           this.codiceFiscaleValidation =

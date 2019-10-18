@@ -16,7 +16,6 @@ import {map} from 'rxjs/operators';
 export class HomePageComponent implements OnInit {
 
   currentUser: Utente;
-  currentUserSuperuser: boolean;
 
   // come gestire i due utenti? Se metto solo un controllo nell'html qualcuno potrebbe comunque visualizzare
   // l'indirzzo del pulsante per creare un nuovo user
@@ -90,7 +89,7 @@ export class HomePageComponent implements OnInit {
       testo: 'Elimina',
       buttonTypeBootstrap: 'btn-danger',
       redirect: false,
-      url: 'http://localhost:3000/utenti?codiceFiscale=',
+      url: 'http://localhost:8080/api/utenti/',
       // queryParameters: {queryParams: {codiceFiscale: ''}}
       restApi: RestApi.Delete
     },
@@ -114,9 +113,7 @@ export class HomePageComponent implements OnInit {
     private utentiService: UtentiService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    console.log(this.currentUser);
-    this.authenticationService.currentUserSuperuser.subscribe(superuser => this.currentUserSuperuser = superuser);
-    console.log(this.currentUserSuperuser);
+    // this.authenticationService.currentUserSuperuser.subscribe(superuser => this.currentUserSuperuser = superuser);
   }
 
   ngOnInit(): void {

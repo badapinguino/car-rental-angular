@@ -5,7 +5,7 @@ export interface Utente {
   nome?: string;
   dataNascita?: string; // esiste anche Date, quando inserisco magari fare new Date
   superuser?: boolean;
-  password_utente?: string;
+  password?: string;
   immagine?: string;
 // come metto la chiave esterna? O meglio, Utente contiene un set di prenotazioni, come faccio?
 }

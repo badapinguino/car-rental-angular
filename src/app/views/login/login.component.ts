@@ -63,20 +63,17 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // data = JSON.parse(data + '');
-          // console.log(data);
-          console.log(data);
           if (data != null && data.jwt != null) {
             this.authenticationService.impostaUtenteLocalStorage(this.f.codiceFiscale.value).subscribe(
-              utente => {console.log(utente);
+              utente => {
                          this.router.navigate([this.returnUrl]);
               }
             );
-          } else if (data.error) {
+          } else if (data != null && data.error) {
             this.error = data.error;
             this.loading = false;
             this.authenticationService.logout();
-          } else if (data.length === 0 || data === undefined || data === null) {
+          } else if (data === undefined || data === null) {
             this.error = 'Codice fiscale o password sbagliate';
             this.loading = false;
             this.authenticationService.logout();

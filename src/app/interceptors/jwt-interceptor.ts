@@ -11,19 +11,21 @@ export class JwtInterceptor implements HttpInterceptor {
     // add auth header with jwt if user is logged in and request is to api url
     const currentUser = this.authenticationService.currentUserValue;
     const currentJwtToken = this.authenticationService.currentJwtTokenValue;
-    const isLoggedIn = currentUser && currentUser.token;
-    const isApiUrl = request.url.startsWith('http://localhost:8080/api/'); // o forse solo /api/    ?
-    if (isLoggedIn && isApiUrl) {
-      console.log('QUA NON CI DOVREBBE PASSARE IL LOGIN');
-      request = request.clone({
+    const isLoggedIn = currentUser && currentJwtToken;
+    const isApiUrl = request.url.startsWith('http://localhost:8080/api/');
+    // la prima richiesta non può essere loggato, quindi tolgo isLoggedIn
+    if (/*isLoggedIn &&*/ isApiUrl) {
+      request = request.clone({ // `${currentJwtToken}`
         setHeaders: {
-          'X-Auth' : `${currentJwtToken}`
-        }
+          'X-Auth' : currentJwtToken
+        },
+        withCredentials: false
+      });
+    } else {
+      request = request.clone({
+        withCredentials: false
       });
     }
-    request = request.clone({
-      withCredentials: false
-    });
 
     return next.handle(request);
   }
