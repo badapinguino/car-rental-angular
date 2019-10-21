@@ -134,7 +134,6 @@ export class CreaModificaUtenteComponent implements OnInit {
           .pipe(first())
           .subscribe(
             dati => {
-              console.log(dati);
               this.successMessage = 'Utente inserito correttamente';
             },
             error => {

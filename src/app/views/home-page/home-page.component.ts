@@ -7,6 +7,7 @@ import {UtentiService} from '../../services/utenti.service';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApi} from '../../services/rest-api.enum';
 import {map} from 'rxjs/operators';
+import {CustomTableComponent} from '../../custom-components/custom-table/custom-table.component';
 
 @Component({
   selector: 'app-home-page',
@@ -126,6 +127,12 @@ export class HomePageComponent implements OnInit {
         user.superuser = user.superuser ? 'Sì' : 'No';
         return user;
       }))
-    ).subscribe(utenti => this.listaUtenti = utenti);
+    ).subscribe(utenti => {
+      this.listaUtenti = utenti;
+    });
+  }
+
+  onRichiestaRest(risultato: any) {
+    this.inizializzaListaUtenti();
   }
 }

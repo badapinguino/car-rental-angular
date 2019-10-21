@@ -94,7 +94,7 @@ export class AuthenticationService {
       // config
     ).pipe(
       map(token => {
-        localStorage.setItem('currentJwtToken', JSON.stringify(token.jwt));
+        localStorage.setItem('currentJwtToken', token.jwt);
         this.currentJwtTokenSubject.next(token.jwt);
         return token;
         }

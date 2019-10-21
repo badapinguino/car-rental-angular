@@ -2,7 +2,6 @@ import {RestApi} from '../services/rest-api.enum';
 
 export interface CustomButtonProperties {
   testo?: string;
-  urlImmagine?: string;
   width?: number;
   height?: number;
   colour?: string;

@@ -13,24 +13,4 @@ import {AuthenticationService} from './services/authentication.service';
 })
 export class AppComponent {
   title = 'car-rental-angular';
-
-  buttonProperties: CustomButtonProperties = {
-    testo: 'Press me',
-    colour: '#2ecc71',
-    textColour: '#ecf0f1'
-  };
-  buttonProperties2: CustomButtonProperties = {
-    urlImmagine: '/images/baseline_save_black_18dp.png',
-    width: 40,
-    height: 40
-  };
-  buttonProperties3: CustomButtonProperties = {
-    testo: 'Submit',
-    textColour : 'Blue',
-    type: 'submit'
-  };
-  buttonProperties4: CustomButtonProperties = {
-    nameMaterialIcon: 'delete',
-    buttonTypeBootstrap: 'btn-warning'
-  };
 }

@@ -59,7 +59,8 @@
         <app-custom-button [buttonProperties]="button"
                            [elementoCliccato]="elemento"
                            [nomeCampoId]="campoIdElemento"
-                           [id]="elemento[campoIdElemento]">
+                           [id]="elemento[campoIdElemento]"
+        (risultatoRichiesta)="onRichiestaRest($event)">
           <!--(click)="buttonClicked($event)"-->
         </app-custom-button>
       </td>

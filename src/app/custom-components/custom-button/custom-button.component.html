@@ -1,7 +1,6 @@
 <button type="{{buttonProperties?.type}}" [disabled]="buttonProperties.disabled"
         class="btn bottone text-center {{buttonProperties?.buttonTypeBootstrap}}"
-        [ngStyle]="{'background-image':'url(' + buttonProperties?.urlImmagine +')',
-                    'width.px':buttonProperties?.width,
+        [ngStyle]="{'width.px':buttonProperties?.width,
                     'height.px':buttonProperties?.height,
                     'background-color':buttonProperties?.colour,
                     'color': buttonProperties?.textColour}"

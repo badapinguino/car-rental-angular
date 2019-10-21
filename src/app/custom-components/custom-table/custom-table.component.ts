@@ -1,17 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import * as _ from 'lodash';
 import {PipeOrderByPipe} from './pipe-order-by.pipe';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {RestApi} from '../../services/rest-api.enum';
 import {CustomButtonComponent} from '../custom-button/custom-button.component';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-custom-table',
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.css']
 })
-export class CustomTableComponent implements OnInit {
+export class CustomTableComponent implements OnInit, OnChanges {
   _ = _;
 
   // sorting
@@ -40,6 +41,7 @@ export class CustomTableComponent implements OnInit {
 
   @Input() listaHeaderBottoni: HeaderCustomTable[];
   @Input() listaBottoni: CustomButtonProperties[];
+  @Output() buttonClickedData: EventEmitter<any> = new EventEmitter();
 
   private listaElementiFiltrata: any[];
   private inputUtente = '';
@@ -58,10 +60,14 @@ export class CustomTableComponent implements OnInit {
   // };
 
 
-
   constructor() {  }
 
   ngOnInit() {
+    this.operationsOnChangeOnInit();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
     this.operationsOnChangeOnInit();
   }
 
@@ -178,12 +184,10 @@ export class CustomTableComponent implements OnInit {
     console.log(this.listaElementiSliced);
   }
 
-  getRisultato(risultato: any[]) {
-    this.listaElementi = risultato;
+  onRichiestaRest(risultato: any) {
+    this.buttonClickedData.emit(risultato);
+    // this.setPage(1);
+    // QUI METTERE ONCHANGE ARRAY SLICED
     this.operationsOnChangeOnInit();
   }
-
-  // buttonClicked(risultato: any) {
-  //   this.buttonClickedData.emit(risultato);
-  // }
 }
