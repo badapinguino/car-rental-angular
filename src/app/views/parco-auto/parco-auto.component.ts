@@ -27,7 +27,7 @@ export class ParcoAutoComponent implements OnInit {
 
   listaVeicoli: Veicolo[];
 
-  listaHeaderUtenti: HeaderCustomTable[] = [
+  listaHeaderVeicoli: HeaderCustomTable[] = [
     {
       key: 'codiceMezzo',
       label: 'Codice Mezzo'
