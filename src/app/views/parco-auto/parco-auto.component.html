@@ -1,0 +1,12 @@
+<br>
+<app-custom-button [buttonProperties]="creaVeicoloPulsanteProprieta"></app-custom-button><br><br>
+<!--<div *ngIf="listaUtenti?inizializzaListaUtentiTabella():false">;</div>-->
+<app-custom-table *ngIf="listaVeicoli"
+                  [listaElementi]="listaVeicoli"
+                  [listaHeader]="listaHeaderVeicoli"
+                  [listaBottoni]="listaPulsanti"
+                  [listaHeaderBottoni]="listaHeaderPulsanti"
+                  campoIdElemento="codiceMezzo"
+                  (buttonClickedData)="onRichiestaRest($event)">
+</app-custom-table>
+

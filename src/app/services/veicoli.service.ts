@@ -1,17 +1,15 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {RestApiRequests} from './rest-api-requests';
 import {Utente} from '../model/utente';
-import {catchError, first, retry} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {CreaModificaUtenteComponent} from '../views/crea-modifica-utente/crea-modifica-utente.component';
+import {Observable, throwError} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
+import {Veicolo} from '../model/veicolo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UtentiService {
+export class VeicoliService {
   @Output() risultatoRichiesta: EventEmitter<any> = new EventEmitter();
-  a: Promise<Utente[]>;
 
   constructor(private http: HttpClient /*private restApiRequest: RestApiRequests*/) { }
 
@@ -22,15 +20,15 @@ export class UtentiService {
     })
   };
 
-  selezionaTuttiUtenti(): Observable<any[]> {
-    return this.http.get<Utente[]>('http://localhost:8080/api/utenti')
+  selezionaTuttiVeicoli(): Observable<Veicolo[]> {
+    return this.http.get<Veicolo[]>('http://localhost:8080/api/veicoli')
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  selezionaUtente(codiceFiscale: string): Observable<Utente> {
-    return this.http.get<Utente>('http://localhost:8080/api/utenti/' + codiceFiscale)
+  selezionaVeicolo(codiceMezzo: string): Observable<Veicolo> {
+    return this.http.get<Utente>('http://localhost:8080/api/veicoli/' + codiceMezzo)
       .pipe(
         catchError(this.handleError)
       );
@@ -50,18 +48,9 @@ export class UtentiService {
     return throwError(errorMessage);
   }
 
-  salvaUtente(utente: Utente): Observable<Utente> {
-    console.log(utente);
-    return this.http.post<Utente>('http://localhost:8080/api/utenti', JSON.stringify(utente), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
-  }
-
-  // TODO: da rimuovere perché assieme a salva
-  aggiornaUtente(utente: Utente): Observable<Utente> {
-    return this.http.put<Utente>('http://localhost:8080/api/utenti/' + utente.id, JSON.stringify(utente), this.httpOptions)
+  salvaVeicolo(veicolo: Veicolo): Observable<Veicolo> {
+    console.log(veicolo);
+    return this.http.post<Utente>('http://localhost:8080/api/veicoli', JSON.stringify(veicolo), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

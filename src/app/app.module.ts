@@ -17,6 +17,7 @@ import { HomePageComponent } from './views/home-page/home-page.component';
 import { CreaModificaUtenteComponent } from './views/crea-modifica-utente/crea-modifica-utente.component';
 import {ErrorInterceptor} from './interceptors/error-interceptor';
 import {JwtInterceptor} from './interceptors/jwt-interceptor';
+import { ParcoAutoComponent } from './views/parco-auto/parco-auto.component';
 // import {fakeBackendProvider} from './interceptors/fake-backend';
 
 // used to create fake backend
@@ -32,7 +33,8 @@ import {JwtInterceptor} from './interceptors/jwt-interceptor';
     NavBarComponent,
     LoginComponent,
     HomePageComponent,
-    CreaModificaUtenteComponent
+    CreaModificaUtenteComponent,
+    ParcoAutoComponent
   ],
   imports: [
     BrowserModule,

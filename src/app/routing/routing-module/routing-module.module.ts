@@ -6,6 +6,7 @@ import {AppComponent} from '../../app.component';
 import {AuthGuard} from '../../services/auth-guard.guard';
 import {HomePageComponent} from '../../views/home-page/home-page.component';
 import {CreaModificaUtenteComponent} from '../../views/crea-modifica-utente/crea-modifica-utente.component';
+import {ParcoAutoComponent} from '../../views/parco-auto/parco-auto.component';
 
 const routes: Routes = [
   // {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'creaModificaUtente',
     component: CreaModificaUtenteComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'parcoAuto',
+    component: ParcoAutoComponent,
     canActivate: [AuthGuard]
   }/*,
   {
