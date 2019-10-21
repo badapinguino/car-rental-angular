@@ -57,11 +57,15 @@
       </td>
       <td *ngFor="let button of listaBottoni" class="text-center">
         <app-custom-button [buttonProperties]="button"
-                           [elementoCliccato]="elemento"
                            [nomeCampoId]="campoIdElemento"
                            [id]="elemento[campoIdElemento]"
-        (risultatoRichiesta)="onRichiestaRest($event)">
-          <!--(click)="buttonClicked($event)"-->
+                           (click)="onClickButtonRequest( button.urlRestApi,
+                                                          button.restApi,
+                                                          elemento,
+                                                          elemento[campoIdElemento])">
+                              <!-- (risultatoRichiesta)="onRichiestaRest($event)" -->
+                              <!-- (click)="buttonClicked($event)" -->
+<!--          [elementoCliccato]="elemento"-->
         </app-custom-button>
       </td>
     </tr>

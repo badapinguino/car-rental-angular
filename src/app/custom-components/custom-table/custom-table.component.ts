@@ -6,6 +6,8 @@ import {RestApi} from '../../services/rest-api.enum';
 import {CustomButtonComponent} from '../custom-button/custom-button.component';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {RestApiRequests} from '../../services/rest-api-requests';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-custom-table',
@@ -60,14 +62,13 @@ export class CustomTableComponent implements OnInit, OnChanges {
   // };
 
 
-  constructor() {  }
+  constructor(public restApiService: RestApiRequests, private router: Router) {  }
 
   ngOnInit() {
     this.operationsOnChangeOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     this.operationsOnChangeOnInit();
   }
 
@@ -184,10 +185,49 @@ export class CustomTableComponent implements OnInit, OnChanges {
     console.log(this.listaElementiSliced);
   }
 
-  onRichiestaRest(risultato: any) {
-    this.buttonClickedData.emit(risultato);
-    // this.setPage(1);
-    // QUI METTERE ONCHANGE ARRAY SLICED
-    this.operationsOnChangeOnInit();
+  // onRichiestaRest(risultato: any) {
+  //   this.buttonClickedData.emit(risultato);
+  //   // this.setPage(1);
+  //   // QUI METTERE ONCHANGE ARRAY SLICED
+  //   this.operationsOnChangeOnInit();
+  // }
+
+  onClickButtonRequest(url: string, restApi: RestApi, elemento?: any, id?: any): any | any[] {
+    if (url != null) {
+      let risultato: any;
+      switch (restApi) {
+        // metto un controllo se redirect è true allora utilizza le routes e cambia pagina?
+        case 'GET':
+          if (id == null) {
+            risultato = this.restApiService.doGetAll(url);
+          } else {
+            risultato = this.restApiService.doGet(url, id);
+          }
+          break;
+        case 'POST':
+          risultato = this.restApiService.doPost(elemento, url);
+          break;
+        case 'DELETE':
+          risultato = this.restApiService.doDelete(id, url);
+          break;
+        case 'UPDATE':
+          risultato = this.restApiService.doUpdate(id, elemento, url);
+          break;
+      }
+      if (risultato != null) {
+        risultato.subscribe(data => {
+          console.log(data);
+          // console.log(JSON.parse(data + ''));
+          // this.risultato = data;
+          this.buttonClickedData.emit(data);
+          // window.location.reload();
+          // const something = window.open('data:text/html,' + encodeURIComponent(this.risultatoRichiesta),
+          //   '_blank');
+          // something.focus();
+        });
+      }
+      // problema: come faccio per passare i parametri della delete, post e update? Il form me li passa automaticamente?
+      // va bene anche se uso il button nel form e non il submit, io ho messo la possibilità di inserire come type submit, funziona?
+    }
   }
 }

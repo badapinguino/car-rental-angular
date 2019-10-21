@@ -10,7 +10,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RestApiRequests} from './services/rest-api-requests';
 import {RouterModule} from '@angular/router';
 import {RoutingModuleModule} from './routing/routing-module/routing-module.module';
-import { TableViewComponentComponent } from './views/table-view-component/table-view-component.component';
 import {MyLinkDirective} from './_directive/my-link.directive';
 import { NavBarComponent } from './custom-components/nav-bar/nav-bar.component';
 import { LoginComponent } from './views/login/login.component';
@@ -29,7 +28,6 @@ import {JwtInterceptor} from './interceptors/jwt-interceptor';
     CustomButtonComponent,
     CustomTableComponent,
     PipeOrderByPipe,
-    TableViewComponentComponent,
     MyLinkDirective,
     NavBarComponent,
     LoginComponent,

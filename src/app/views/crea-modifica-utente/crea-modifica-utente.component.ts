@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {first} from 'rxjs/operators';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../services/authentication.service';
   templateUrl: './crea-modifica-utente.component.html',
   styleUrls: ['./crea-modifica-utente.component.css']
 })
-export class CreaModificaUtenteComponent implements OnInit {
+export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   private utenteForm: FormGroup;
   private submitted = false;
   creaUtenteButtonProperties: CustomButtonProperties;
@@ -36,6 +36,10 @@ export class CreaModificaUtenteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onInitOnChanges();
+  }
+
+  onInitOnChanges() {
     this.codiceFiscaleUtenteDaModificare = this.route.snapshot.queryParamMap.get('codiceFiscale');
 
     if (this.codiceFiscaleUtenteDaModificare) {
@@ -76,6 +80,12 @@ export class CreaModificaUtenteComponent implements OnInit {
       });
     }
   }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log('never triggered!!!');
+  //   console.log(changes);
+  //   this.onInitOnChanges();
+  // }
 
   get f() { return this.utenteForm.controls; }
 

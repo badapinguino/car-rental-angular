@@ -23,8 +23,7 @@ export class HomePageComponent implements OnInit {
   creaUtentePulsanteProprieta: CustomButtonProperties = {
     testo: 'Crea un nuovo customer',
     buttonTypeBootstrap: 'btn-primary',
-    url: '/creaModificaUtente',
-    redirect: true
+    url: '/creaModificaUtente'
   };
 
   listaUtenti: Utente[];
@@ -70,10 +69,6 @@ export class HomePageComponent implements OnInit {
       label: 'Elimina'
     },
     {
-      key: 'multe',
-      label: 'Multe'
-    },
-    {
       key: 'prenotazioni',
       label: 'Prenotazioni'
     }
@@ -83,27 +78,18 @@ export class HomePageComponent implements OnInit {
     {
       testo: 'Modifica',
       buttonTypeBootstrap: 'btn-outline-primary',
-      redirect: true,
       url: '/creaModificaUtente'
     },
     {
       testo: 'Elimina',
       buttonTypeBootstrap: 'btn-danger',
-      redirect: false,
-      url: 'http://localhost:8080/api/utenti/',
+      urlRestApi: 'http://localhost:8080/api/utenti/',
       // queryParameters: {queryParams: {codiceFiscale: ''}}
       restApi: RestApi.Delete
     },
     {
-      testo: 'Multe',
-      buttonTypeBootstrap: 'btn-outline-primary',
-      redirect: true,
-      url: '/multeUtente?codiceFiscale='
-    },
-    {
       testo: 'Prenotazioni',
       buttonTypeBootstrap: 'btn-outline-primary',
-      redirect: true,
       url: '/prenotazioniUtente?codiceFiscale='
     }
   ];

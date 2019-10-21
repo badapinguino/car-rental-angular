@@ -10,7 +10,7 @@ export interface CustomButtonProperties {
   nameMaterialIcon?: string;
   buttonTypeBootstrap?: string;
   url?: string;
+  urlRestApi?: string;
   restApi?: RestApi;
-  redirect?: boolean;
   disabled?: boolean;
 }

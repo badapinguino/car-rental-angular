@@ -8,7 +8,7 @@
       <ul *ngIf="currentUser.superuser" class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link register-custom" routerLink="/homePage" [routerLinkActive]="['active']">Home Page</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/parcoAuto" [routerLinkActive]="['active']">Parco Auto</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/codiciSconto" [routerLinkActive]="['active']">Codici Sconto</a></li>
+<!--        <li class="nav-item"><a class="nav-link" routerLink="/codiciSconto" [routerLinkActive]="['active']">Codici Sconto</a></li>-->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profilo Utente
@@ -22,7 +22,7 @@
       <ul *ngIf="!currentUser.superuser" class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" routerLink="/homePage" [routerLinkActive]="['active']">Home Page</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/parcoAuto" [routerLinkActive]="['active']">Parco Auto</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/multeUtente?codiceFiscaleUtenteConMulte={{currentUser.codiceFiscale}}" [routerLinkActive]="['active']">Multe</a></li>
+<!--        <li class="nav-item"><a class="nav-link" routerLink="/multeUtente?codiceFiscaleUtenteConMulte={{currentUser.codiceFiscale}}" [routerLinkActive]="['active']">Multe</a></li>-->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profilo Utente
