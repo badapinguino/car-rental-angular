@@ -27,7 +27,7 @@ export class CustomTableComponent implements OnInit, OnChanges {
   radioSelected: string;
 
   // paginazione
-  elementiPerPagina = 2;
+  elementiPerPagina = 6;
   numeroPagineTotale: number;
   numeroPaginaAttuale = 1; // parte da 1 e non da 0! attenzione
   // arrayListaElementi: any[];

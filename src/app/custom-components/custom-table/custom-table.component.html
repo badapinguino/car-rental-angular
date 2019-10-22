@@ -2,7 +2,7 @@
 
 
 <div class="form-row">
-  <div class="form-group col-md-6">
+<!--  <div class="form-group col-md-6">-->
     <div class="form-check form-check-inline">
 
       <label *ngFor="let head of getHeaderKeys(listaHeader); let i = index"
@@ -12,16 +12,19 @@
           {{getHeaderLabels(listaHeader)[i]}}
         </div>
       </label>
-    </div>
+<!--    </div>-->
   </div>
+</div>
+<br>
+<div class="form-row">
   <!-- barra di ricerca sulla tabella -->
-  <div class="form-group col-md-6">
+  <div class="form-group col-md-4">
     <input type="text" class="form-control" id="ricercaSuTabella" (keyup)="filterSearch()"
            placeholder="Cerca nella tabella..." [(ngModel)]="inputUtente">     <!--{{radioSelected}}-->
   </div>
 </div>
 
-
+<br>
 
 
 <!--<form>-->
@@ -80,8 +83,6 @@
   <div class="col">
 <!--    <label for="pageSize">Elementi per pagina</label>-->
     <select class="custom-select" style="width: auto" name="pageSize" id="pageSize" [(ngModel)]="elementiPerPagina" (ngModelChange)="operationsOnChangeOnInit()">
-      <option [ngValue]="2">2 Elementi per pagina</option>
-      <option [ngValue]="4">4 Elementi per pagina</option>
       <option [ngValue]="6">6 Elementi per pagina</option>
       <option [ngValue]="8">8 Elementi per pagina</option>
       <option [ngValue]="10">10 Elementi per pagina</option>

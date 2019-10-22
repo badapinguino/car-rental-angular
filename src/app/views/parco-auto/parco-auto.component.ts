@@ -90,11 +90,11 @@ export class ParcoAutoComponent implements OnInit {
   inizializzaListaVeicoli() {
     this.veicoliService.selezionaTuttiVeicoli().pipe(
       map((r: any[]) => r.map(veicolo => {
-        veicolo.superuser = veicolo.superuser ? 'Sì' : 'No';
+        veicolo.prezzoGiornata = veicolo.prezzoGiornata + '€';
         return veicolo;
       }))
-    ).subscribe(utenti => {
-      this.listaVeicoli = utenti;
+    ).subscribe(veicoli => {
+      this.listaVeicoli = veicoli;
     });
   }
 

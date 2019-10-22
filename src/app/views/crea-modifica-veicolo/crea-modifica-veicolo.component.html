@@ -1,0 +1,93 @@
+<div class="container">
+  <br>
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+  <br>
+  <h4 class="text-center text-primary">{{titoloPagina}}</h4>
+  <!-- TODO: Inserire form template driven -->
+  <form *ngIf="model" (ngSubmit)="veicoloForm.form.valid && onSubmit()" #veicoloForm="ngForm">
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <label for="casaCostruttrice">Casa costruttrice</label>
+          <input type="text" class="form-control" id="casaCostruttrice"
+                 required
+                 [(ngModel)]="model.casaCostruttrice" name="casaCostruttrice"
+                 #casaCostruttrice="ngModel" maxlength="80">
+          <div [hidden]="casaCostruttrice.valid"
+               class="text-danger">    <!-- || casaCostruttrice.pristine -->
+            Casa costruttrice non può essere vuota.
+          </div>
+        </div>
+        <div class="col">
+          <label for="modello">Modello</label>
+          <input type="text" class="form-control" id="modello" required
+                [(ngModel)]="model.modello" name="modello" #modello="ngModel" maxlength="80">
+          <div [hidden]="modello.valid"
+               class="text-danger">
+            Il nome del modello non può essere vuoto.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <label for="codiceMezzo">Codice mezzo</label>
+          <input type="text" class="form-control" id="codiceMezzo" required
+                 [(ngModel)]="model.codiceMezzo" name="codiceMezzo" #codiceMezzo="ngModel" maxlength="15">
+          <div [hidden]="codiceMezzo.valid"
+               class="text-danger">
+            Il codice mezzo non può essere vuoto.
+          </div>
+        </div>
+        <div class="col">
+          <label for="targa">Targa</label>
+          <input type="text" class="form-control" id="targa" required
+                 [(ngModel)]="model.targa" name="targa" #targa="ngModel" maxlength="10">
+          <div [hidden]="targa.valid"
+               class="text-danger">
+            La targa non può essere vuota.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <label for="anno">Anno</label>
+          <input type="number" class="form-control" id="anno" required min="1900" step="1"
+                 [(ngModel)]="model.anno" name="anno" #anno="ngModel">
+          <div [hidden]="anno.valid"
+               class="text-danger">
+            L'anno non può essere vuoto e deve essere superiore al 1900.
+          </div>
+        </div>
+        <div class="col">
+          <label for="prezzoGiornata">Prezzo a giornata in euro</label>
+          <input type="number" class="form-control" id="prezzoGiornata" required min="0.01" step="0.01"
+                 [(ngModel)]="model.prezzoGiornata" name="prezzoGiornata" #prezzoGiornata="ngModel">
+          <div [hidden]="prezzoGiornata.valid"
+               class="text-danger">
+            Il prezzo a giornata non può essere vuoto e deve essere superiore a 0€.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tipologia">Tipologia</label>
+        <select class="form-control" id="tipologia"
+                required
+                [(ngModel)]="model.tipologia" name="tipologia"
+                #tipologia="ngModel">
+          <option *ngFor="let tipo of listaTipologiaVeicoli" [value]="tipo">{{tipo}}</option>
+        </select>
+        <div [hidden]="tipologia.valid || tipologia.pristine" class="alert alert-danger">
+          La tipologia non può essere vuota.
+        </div>
+      </div>
+    </div>
+    <app-custom-button [buttonProperties]="creaVeicoloButtonProperties"></app-custom-button>
+<!--    <button type="submit" class="btn btn-primary" [disabled]="!veicoloForm.form.valid">Inserisci veicolo</button>-->
+  </form>
+</div>

@@ -7,6 +7,7 @@ import {AuthGuard} from '../../services/auth-guard.guard';
 import {HomePageComponent} from '../../views/home-page/home-page.component';
 import {CreaModificaUtenteComponent} from '../../views/crea-modifica-utente/crea-modifica-utente.component';
 import {ParcoAutoComponent} from '../../views/parco-auto/parco-auto.component';
+import {CreaModificaVeicoloComponent} from '../../views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 
 const routes: Routes = [
   // {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'parcoAuto',
     component: ParcoAutoComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'creaModificaVeicolo',
+    component: CreaModificaVeicoloComponent,
     canActivate: [AuthGuard]
   }/*,
   {
