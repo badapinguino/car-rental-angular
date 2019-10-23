@@ -90,7 +90,7 @@ export class HomePageComponent implements OnInit {
     {
       testo: 'Prenotazioni',
       buttonTypeBootstrap: 'btn-outline-primary',
-      url: '/prenotazioniUtente?codiceFiscale='
+      url: '/prenotazioniUtente'
     }
   ];
 

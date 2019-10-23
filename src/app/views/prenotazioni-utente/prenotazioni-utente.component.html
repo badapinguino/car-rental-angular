@@ -1,0 +1,14 @@
+<br>
+<h4 *ngIf="utentePrenotazioni" class="text-center text-primary">Prenotazioni di {{utentePrenotazioni.nome}} {{utentePrenotazioni.cognome}}</h4>
+<br>
+<app-custom-button [buttonProperties]="creaPrenotazionePulsanteProprieta"></app-custom-button><br><br>
+<app-custom-table *ngIf="listaPrenotazioni"
+                  [listaElementi]="listaPrenotazioni"
+                  [listaHeader]="listaHeaderPrenotazioni"
+                  [listaBottoni]="listaPulsanti"
+                  [listaHeaderBottoni]="listaHeaderPulsanti"
+                  campoIdElemento="codiceMezzo"
+                  (buttonClickedData)="onRichiestaRest($event)">
+</app-custom-table>
+
+
