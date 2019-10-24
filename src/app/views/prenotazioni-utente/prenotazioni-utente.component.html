@@ -1,14 +1,31 @@
-<br>
-<h4 *ngIf="utentePrenotazioni" class="text-center text-primary">Prenotazioni di {{utentePrenotazioni.nome}} {{utentePrenotazioni.cognome}}</h4>
-<br>
-<app-custom-button [buttonProperties]="creaPrenotazionePulsanteProprieta"></app-custom-button><br><br>
-<app-custom-table *ngIf="listaPrenotazioni"
-                  [listaElementi]="listaPrenotazioni"
-                  [listaHeader]="listaHeaderPrenotazioni"
-                  [listaBottoni]="listaPulsanti"
-                  [listaHeaderBottoni]="listaHeaderPulsanti"
-                  campoIdElemento="codiceMezzo"
-                  (buttonClickedData)="onRichiestaRest($event)">
-</app-custom-table>
+<span *ngIf="currentUser.superuser===true || (utentePrenotazioni && currentUser.codiceFiscale === utentePrenotazioni.codiceFiscale)">
+  <span *ngIf="currentUser.superuser===true">
+    <br>
+    <h4 *ngIf="utentePrenotazioni" class="text-center text-primary">Prenotazioni di {{utentePrenotazioni.nome}} {{utentePrenotazioni.cognome}}</h4>
+    <br>
+  </span>
+  <span *ngIf="currentUser.superuser===false">
+    <app-custom-button
+      [buttonProperties]="creaPrenotazionePulsanteProprieta"
+      nomeCampoId="codiceFiscale"
+      [id]="codiceFiscaleUtentePrenotazioni">
+    </app-custom-button>
+    <br><br>
+  </span>
+  <h5 *ngIf="listaPrenotazioniVeicoli.length<=0" class="text-warning">L'utente non ha effettuato prenotazioni</h5>
+  <app-custom-table *ngIf="listaPrenotazioniVeicoli.length>0 && currentUser.superuser===false"
+                    [listaElementi]="listaPrenotazioniVeicoli"
+                    [listaHeader]="listaHeaderPrenotazioni"
+                    [listaBottoni]="listaPulsanti"
+                    [listaHeaderBottoni]="listaHeaderPulsanti"
+                    campoIdElemento="id"
+                    (buttonClickedData)="onRichiestaRest($event)">
+  </app-custom-table>
 
-
+  <app-custom-table *ngIf="listaPrenotazioniVeicoli.length>0 && currentUser.superuser===true"
+                    [listaElementi]="listaPrenotazioniVeicoli"
+                    [listaHeader]="listaHeaderPrenotazioni"
+                    campoIdElemento="id"
+                    (buttonClickedData)="onRichiestaRest($event)">
+  </app-custom-table>
+</span>

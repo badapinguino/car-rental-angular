@@ -1,9 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Veicolo} from '../model/veicolo';
 import {catchError, retry} from 'rxjs/operators';
-import {Utente} from '../model/utente';
 import {Prenotazione} from '../model/prenotazione';
 
 @Injectable({
@@ -52,7 +50,7 @@ export class PrenotazioniService {
 
   salvaPrenotazione(prenotazione: Prenotazione): Observable<Prenotazione> {
     console.log(prenotazione);
-    return this.http.post<Prenotazione>('http://localhost:8080/api/prenotazione', JSON.stringify(prenotazione), this.httpOptions)
+    return this.http.post<Prenotazione>('http://localhost:8080/api/prenotazioni', JSON.stringify(prenotazione), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

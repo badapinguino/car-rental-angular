@@ -20,6 +20,7 @@ import {JwtInterceptor} from './interceptors/jwt-interceptor';
 import { ParcoAutoComponent } from './views/parco-auto/parco-auto.component';
 import { CreaModificaVeicoloComponent } from './views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenotazioni-utente.component';
+import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
 // import {fakeBackendProvider} from './interceptors/fake-backend';
 
 // used to create fake backend
@@ -38,7 +39,8 @@ import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenota
     CreaModificaUtenteComponent,
     ParcoAutoComponent,
     CreaModificaVeicoloComponent,
-    PrenotazioniUtenteComponent
+    PrenotazioniUtenteComponent,
+    CreaModificaPrenotazioneComponent
   ],
   imports: [
     BrowserModule,

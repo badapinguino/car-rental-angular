@@ -3,9 +3,7 @@ import * as _ from 'lodash';
 import {PipeOrderByPipe} from './pipe-order-by.pipe';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {RestApi} from '../../services/rest-api.enum';
-import {CustomButtonComponent} from '../custom-button/custom-button.component';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
-import {BehaviorSubject, Observable} from 'rxjs';
 import {RestApiRequests} from '../../services/rest-api-requests';
 import {Router} from '@angular/router';
 

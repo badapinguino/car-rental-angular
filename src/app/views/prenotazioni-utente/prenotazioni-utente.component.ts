@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApi} from '../../services/rest-api.enum';
-import {map} from 'rxjs/operators';
 import {Prenotazione} from '../../model/prenotazione';
 import {PrenotazioniService} from '../../services/prenotazioni.service';
 import {ActivatedRoute} from '@angular/router';
 import {UtentiService} from '../../services/utenti.service';
 import {Utente} from '../../model/utente';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-prenotazioni-utente',
@@ -15,10 +15,19 @@ import {Utente} from '../../model/utente';
   styleUrls: ['./prenotazioni-utente.component.css']
 })
 export class PrenotazioniUtenteComponent implements OnInit {
+  @Input() codiceFiscaleInput: string;
+
   private codiceFiscaleUtentePrenotazioni: string;
   private utentePrenotazioni: Utente;
+  private currentUser: Utente;
 
-  constructor(private prenotazioniService: PrenotazioniService, private route: ActivatedRoute, private utentiService: UtentiService) { }
+  constructor(
+    private prenotazioniService: PrenotazioniService,
+    private route: ActivatedRoute,
+    private utentiService: UtentiService,
+    private authenticationService: AuthenticationService) {
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
   creaPrenotazionePulsanteProprieta: CustomButtonProperties = {
     testo: 'Effettua una nuova prenotazione',
@@ -27,6 +36,12 @@ export class PrenotazioniUtenteComponent implements OnInit {
   };
 
   listaPrenotazioni: Prenotazione[];
+  listaPrenotazioniVeicoli: {
+    id: number,
+    dataInizio: string,
+    dataFine: string,
+    descrizioneVeicolo: string
+  }[] = [];
 
   listaHeaderPrenotazioni: HeaderCustomTable[] = [
     {
@@ -40,6 +55,10 @@ export class PrenotazioniUtenteComponent implements OnInit {
     {
       key: 'dataFine',
       label: 'Data Fine'
+    },
+    {
+      key: 'descrizioneVeicolo',
+      label: 'Veicolo'
     }
   ];
 
@@ -69,7 +88,12 @@ export class PrenotazioniUtenteComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.codiceFiscaleUtentePrenotazioni = this.route.snapshot.queryParamMap.get('codiceFiscale');
+    if (this.codiceFiscaleInput) {
+      this.codiceFiscaleUtentePrenotazioni = this.codiceFiscaleInput;
+    } else {
+      this.codiceFiscaleUtentePrenotazioni = this.route.snapshot.queryParamMap.get('codiceFiscale');
+    }
+    // this.listaPulsanti[0].url = '/creaModificaPrenotazione?codiceFiscale=' + this.codiceFiscaleUtentePrenotazioni;
 
     if (this.codiceFiscaleUtentePrenotazioni) {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtentePrenotazioni)
@@ -90,7 +114,20 @@ export class PrenotazioniUtenteComponent implements OnInit {
       }))
     )*/.subscribe(prenotazioni => {
       this.listaPrenotazioni = prenotazioni;
+      this.inizializzaListaPrenotazioniVeicoli();
     });
+  }
+
+  private inizializzaListaPrenotazioniVeicoli() {
+    for (const item of this.listaPrenotazioni) {
+      this.listaPrenotazioniVeicoli.push(
+        {
+          id: item.id,
+          dataInizio: item.dataInizio,
+          dataFine: item.dataFine,
+          descrizioneVeicolo: item.veicolo.casaCostruttrice + ' ' + item.veicolo.modello
+        });
+    }
   }
 
   onRichiestaRest(risultato: any) {

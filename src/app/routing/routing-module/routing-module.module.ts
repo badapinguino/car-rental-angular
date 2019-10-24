@@ -9,6 +9,7 @@ import {CreaModificaUtenteComponent} from '../../views/crea-modifica-utente/crea
 import {ParcoAutoComponent} from '../../views/parco-auto/parco-auto.component';
 import {CreaModificaVeicoloComponent} from '../../views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 import {PrenotazioniUtenteComponent} from '../../views/prenotazioni-utente/prenotazioni-utente.component';
+import {CreaModificaPrenotazioneComponent} from '../../views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
 
 const routes: Routes = [
   // {
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path: 'prenotazioniUtente',
     component: PrenotazioniUtenteComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'creaModificaPrenotazione',
+    component: CreaModificaPrenotazioneComponent,
     canActivate: [AuthGuard]
   }/*,
   {
