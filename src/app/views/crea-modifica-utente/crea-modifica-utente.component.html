@@ -1,57 +1,60 @@
-<br>
-<div *ngIf="error" class="alert alert-danger">{{error}}</div>
-<div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
-<div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
-<br>
-<h4 class="text-center text-primary">{{titoloPagina}}</h4>
-<form *ngIf="utenteForm" [formGroup]="utenteForm" (ngSubmit)="onSubmit()">
-  <div class="form-row">
-    <div class="col">
-      <label for="nome">Nome</label>
-      <input type="text" class="form-control" id="nome" formControlName="nome"
-             [ngClass]="{ 'is-invalid': submitted && f.nome.errors }" maxlength="80"/>
-      <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
-        <div *ngIf="f.nome.errors.required">Il nome non può essere vuoto</div>
-        <div *ngIf="f.nome.errors.maxlength">Il nome non può essere più lungo di 80 caratteri</div>
+<span *ngIf="currentUser.superuser===true ||
+        (codiceFiscaleUtenteDaModificare && codiceFiscaleUtenteDaModificare===currentUser.codiceFiscale)">
+  <br>
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+  <br>
+  <h4 class="text-center text-primary">{{titoloPagina}}</h4>
+  <form *ngIf="utenteForm" [formGroup]="utenteForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="col">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" formControlName="nome"
+               [ngClass]="{ 'is-invalid': submitted && f.nome.errors }" maxlength="80"/>
+        <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+          <div *ngIf="f.nome.errors.required">Il nome non può essere vuoto</div>
+          <div *ngIf="f.nome.errors.maxlength">Il nome non può essere più lungo di 80 caratteri</div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="cognome">Cognome</label>
+        <input type="text" class="form-control" id="cognome" formControlName="cognome"
+               [ngClass]="{ 'is-invalid': submitted && f.cognome.errors }" maxlength="80"/>
+        <div *ngIf="submitted && f.cognome.errors" class="invalid-feedback">
+          <div *ngIf="f.cognome.errors.required">Il cognome non può essere vuoto</div>
+          <div *ngIf="f.cognome.errors.maxlength">Il cognome non può essere più lungo di 80 caratteri</div>
+        </div>
       </div>
     </div>
-    <div class="col">
-      <label for="cognome">Cognome</label>
-      <input type="text" class="form-control" id="cognome" formControlName="cognome"
-             [ngClass]="{ 'is-invalid': submitted && f.cognome.errors }" maxlength="80"/>
-      <div *ngIf="submitted && f.cognome.errors" class="invalid-feedback">
-        <div *ngIf="f.cognome.errors.required">Il cognome non può essere vuoto</div>
-        <div *ngIf="f.cognome.errors.maxlength">Il cognome non può essere più lungo di 80 caratteri</div>
-      </div>
+    <br>
+    <label for="dataNascita">Data di nascita</label>
+    <input id="dataNascita" type="date" formControlName="dataNascita" class="form-control" required>
+    <!--         [ngClass]="{ 'is-invalid': submitted && f.dataNascita.errors }"/>-->
+    <div *ngIf="submitted && f.dataNascita.errors" class="invalid-feedback">
+      <div *ngIf="f.dataNascita.errors.required">La data di nascita non può essere vuota</div>
     </div>
-  </div>
-  <br>
-  <label for="dataNascita">Data di nascita</label>
-  <input id="dataNascita" type="date" formControlName="dataNascita" class="form-control" required>
-<!--         [ngClass]="{ 'is-invalid': submitted && f.dataNascita.errors }"/>-->
-  <div *ngIf="submitted && f.dataNascita.errors" class="invalid-feedback">
-    <div *ngIf="f.dataNascita.errors.required">La data di nascita non può essere vuota</div>
-  </div>
-  <br>
-  <label for="codiceFiscale">Codice Fiscale</label>
-  <input id="codiceFiscale" type="text" formControlName="codiceFiscale" class="form-control"
-         [ngClass]="{ 'is-invalid': submitted && f.codiceFiscale.errors }" maxlength="16" minlength="16"
-         (input)="onTypeCodiceFiscale($event.target.value)" autocomplete="new-password"/><br>
-  <div *ngIf="submitted && f.codiceFiscale.errors" class="invalid-feedback">
-    <div *ngIf="f.codiceFiscale.errors.required">Il codice fiscale non può essere vuoto</div>
-    <div *ngIf="f.codiceFiscale.errors.maxlength">Il codice fiscale deve essere lungo 16 caratteri</div>
-    <div *ngIf="f.codiceFiscale.errors.minlength">Il codice fiscale deve essere lungo 16 caratteri</div>
-  </div>
-  <div *ngIf="codiceFiscaleValidationTrue" class="invalid-feedback text-warning">{{codiceFiscaleValidation}}</div> <!-- NON ME LO STAMPA -->
-  <label for="password">Password</label>
-  <input id="password" type="password" formControlName="password" class="form-control" autocomplete="new-password"
-         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-    <div *ngIf="f.password.errors.required">La password è obbligatoria</div>
-<!--    <div *ngIf="f.password.errors.maxlength">La password non può essere più lunga di 42 caratteri</div>-->
-  </div>
-  <br>
-  <div class="form-group">
-    <app-custom-button [buttonProperties]="creaUtenteButtonProperties"></app-custom-button>
-  </div>
-</form>
+    <br>
+    <label for="codiceFiscale">Codice Fiscale</label>
+    <input id="codiceFiscale" type="text" formControlName="codiceFiscale" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.codiceFiscale.errors }" maxlength="16" minlength="16"
+           (input)="onTypeCodiceFiscale($event.target.value)" autocomplete="new-password"/><br>
+    <div *ngIf="submitted && f.codiceFiscale.errors" class="invalid-feedback">
+      <div *ngIf="f.codiceFiscale.errors.required">Il codice fiscale non può essere vuoto</div>
+      <div *ngIf="f.codiceFiscale.errors.maxlength">Il codice fiscale deve essere lungo 16 caratteri</div>
+      <div *ngIf="f.codiceFiscale.errors.minlength">Il codice fiscale deve essere lungo 16 caratteri</div>
+    </div>
+    <div *ngIf="codiceFiscaleValidationTrue" class="invalid-feedback text-warning">{{codiceFiscaleValidation}}</div> <!-- NON ME LO STAMPA -->
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-control" autocomplete="new-password"
+           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">La password è obbligatoria</div>
+      <!--    <div *ngIf="f.password.errors.maxlength">La password non può essere più lunga di 42 caratteri</div>-->
+    </div>
+    <br>
+    <div class="form-group">
+      <app-custom-button [buttonProperties]="creaUtenteButtonProperties"></app-custom-button>
+    </div>
+  </form>
+</span>

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {first} from 'rxjs/operators';

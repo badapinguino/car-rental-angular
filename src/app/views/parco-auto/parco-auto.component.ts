@@ -5,6 +5,8 @@ import {RestApi} from '../../services/rest-api.enum';
 import {map} from 'rxjs/operators';
 import {Veicolo} from '../../model/veicolo';
 import {VeicoliService} from '../../services/veicoli.service';
+import {AuthenticationService} from '../../services/authentication.service';
+import {Utente} from '../../model/utente';
 
 @Component({
   selector: 'app-parco-auto',
@@ -12,12 +14,11 @@ import {VeicoliService} from '../../services/veicoli.service';
   styleUrls: ['./parco-auto.component.css']
 })
 export class ParcoAutoComponent implements OnInit {
+  private currentUser: Utente;
 
-  constructor(private veicoliService: VeicoliService) { }
-
-  // ngOnInit() {
-  // }
-
+  constructor(private veicoliService: VeicoliService, private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
   creaVeicoloPulsanteProprieta: CustomButtonProperties = {
     testo: 'Crea un nuovo veicolo',

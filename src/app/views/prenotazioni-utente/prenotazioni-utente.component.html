@@ -12,8 +12,9 @@
     </app-custom-button>
     <br><br>
   </span>
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
   <h5 *ngIf="listaPrenotazioniVeicoli.length<=0" class="text-warning">L'utente non ha effettuato prenotazioni</h5>
-  <app-custom-table *ngIf="listaPrenotazioniVeicoli.length>0 && currentUser.superuser===false"
+  <app-custom-table *ngIf="listaPrenotazioniVeicoli && listaPrenotazioniVeicoli.length>0 && currentUser.superuser===false"
                     [listaElementi]="listaPrenotazioniVeicoli"
                     [listaHeader]="listaHeaderPrenotazioni"
                     [listaBottoni]="listaPulsanti"
@@ -22,7 +23,7 @@
                     (buttonClickedData)="onRichiestaRest($event)">
   </app-custom-table>
 
-  <app-custom-table *ngIf="listaPrenotazioniVeicoli.length>0 && currentUser.superuser===true"
+  <app-custom-table *ngIf="listaPrenotazioniVeicoli && listaPrenotazioniVeicoli.length>0 && currentUser.superuser===true"
                     [listaElementi]="listaPrenotazioniVeicoli"
                     [listaHeader]="listaHeaderPrenotazioni"
                     campoIdElemento="id"

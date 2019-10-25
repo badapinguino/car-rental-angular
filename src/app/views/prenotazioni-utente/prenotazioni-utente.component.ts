@@ -20,6 +20,7 @@ export class PrenotazioniUtenteComponent implements OnInit {
   private codiceFiscaleUtentePrenotazioni: string;
   private utentePrenotazioni: Utente;
   private currentUser: Utente;
+  private error: string;
 
   constructor(
     private prenotazioniService: PrenotazioniService,
@@ -41,7 +42,7 @@ export class PrenotazioniUtenteComponent implements OnInit {
     dataInizio: string,
     dataFine: string,
     descrizioneVeicolo: string
-  }[] = [];
+  }[];
 
   listaHeaderPrenotazioni: HeaderCustomTable[] = [
     {
@@ -97,25 +98,34 @@ export class PrenotazioniUtenteComponent implements OnInit {
 
     if (this.codiceFiscaleUtentePrenotazioni) {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtentePrenotazioni)
-        .subscribe(data => {
-          this.utentePrenotazioni = data;
-        });
+        .subscribe(
+          data => {
+            this.utentePrenotazioni = data;
+          },
+          error => {
+            this.error = error;
+          }
+        );
     }
-
 
     this.inizializzaListaPrenotazioni();
   }
 
+  onRichiestaRest(risultato: any) {
+    this.inizializzaListaPrenotazioni();
+  }
+
   inizializzaListaPrenotazioni() {
-    this.prenotazioniService.selezionaTuttePrenotazioniUtente(this.codiceFiscaleUtentePrenotazioni)/*.pipe(
-      map((r: any[]) => r.map(veicolo => {
-        veicolo.prezzoGiornata = veicolo.prezzoGiornata + '€';
-        return veicolo;
-      }))
-    )*/.subscribe(prenotazioni => {
-      this.listaPrenotazioni = prenotazioni;
-      this.inizializzaListaPrenotazioniVeicoli();
-    });
+    this.listaPrenotazioniVeicoli = [];
+    this.prenotazioniService.selezionaTuttePrenotazioniUtente(this.codiceFiscaleUtentePrenotazioni)
+      .subscribe(
+        prenotazioni => {
+          this.listaPrenotazioni = prenotazioni;
+          this.inizializzaListaPrenotazioniVeicoli();
+        },
+        error => {
+          this.error = error;
+        });
   }
 
   private inizializzaListaPrenotazioniVeicoli() {
@@ -128,10 +138,6 @@ export class PrenotazioniUtenteComponent implements OnInit {
           descrizioneVeicolo: item.veicolo.casaCostruttrice + ' ' + item.veicolo.modello
         });
     }
-  }
-
-  onRichiestaRest(risultato: any) {
-    this.inizializzaListaPrenotazioni();
   }
 
 }

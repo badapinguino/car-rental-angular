@@ -1,13 +1,23 @@
 <br>
 <h4 class="text-center text-primary">Parco auto</h4>
 <br>
-<app-custom-button [buttonProperties]="creaVeicoloPulsanteProprieta"></app-custom-button><br><br>
-<app-custom-table *ngIf="listaVeicoli"
-                  [listaElementi]="listaVeicoli"
-                  [listaHeader]="listaHeaderVeicoli"
-                  [listaBottoni]="listaPulsanti"
-                  [listaHeaderBottoni]="listaHeaderPulsanti"
-                  campoIdElemento="codiceMezzo"
-                  (buttonClickedData)="onRichiestaRest($event)">
-</app-custom-table>
+<span *ngIf="currentUser.superuser===true">
+  <app-custom-button [buttonProperties]="creaVeicoloPulsanteProprieta"></app-custom-button><br><br>
+  <app-custom-table *ngIf="listaVeicoli"
+                    [listaElementi]="listaVeicoli"
+                    [listaHeader]="listaHeaderVeicoli"
+                    [listaBottoni]="listaPulsanti"
+                    [listaHeaderBottoni]="listaHeaderPulsanti"
+                    campoIdElemento="codiceMezzo"
+                    (buttonClickedData)="onRichiestaRest($event)">
+  </app-custom-table>
+</span>
+<span *ngIf="currentUser.superuser===false">
+  <app-custom-table *ngIf="listaVeicoli"
+                    [listaElementi]="listaVeicoli"
+                    [listaHeader]="listaHeaderVeicoli"
+                    campoIdElemento="codiceMezzo"
+                    (buttonClickedData)="onRichiestaRest($event)">
+  </app-custom-table>
+</span>
 
