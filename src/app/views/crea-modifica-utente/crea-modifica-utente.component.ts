@@ -101,6 +101,10 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
       return;
     }
 
+    if (dataNascitaDate < new Date(1900, 1, 1)) {
+      this.error = 'ERRORE: La data di nascita non può essere antecedente al 1900.';
+    }
+
     // stop here if form is invalid
     if (this.utenteForm.invalid) {
       return;
@@ -147,7 +151,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
               this.successMessage = 'Utente inserito correttamente';
             },
             error => {
-              this.error = error;
+              this.error = 'ERRORE: ' + error;
               console.log(this.error);
             });
 

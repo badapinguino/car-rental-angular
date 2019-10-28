@@ -78,7 +78,7 @@ export class CreaModificaVeicoloComponent implements OnInit {
     // controllo se l'anno
     const annoVeicolo = this.model.anno;
     if (annoVeicolo > (new Date().getFullYear() + 1)) {
-      this.error = 'ERRORE: L\'anno del veicolo non può essere superiore all\'anno successivo quello attuale.';
+      this.error = 'ERRORE: L\'anno del veicolo non può essere superiore al ' + (new Date().getFullYear() + 1) + '.';
       return;
     }
     if (annoVeicolo < 1900) {
@@ -109,7 +109,8 @@ export class CreaModificaVeicoloComponent implements OnInit {
               this.successMessage = 'Veicolo inserito correttamente';
             },
             error => {
-              this.error = 'Errore: Il veicolo non è stato inserito.';
+              // this.error = 'Errore: Il veicolo non è stato inserito.';
+              this.error = 'ERRORE: ' + error;
               console.log(this.error);
             });
 
