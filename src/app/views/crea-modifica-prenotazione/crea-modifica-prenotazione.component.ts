@@ -63,8 +63,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
       this.prenotazioniService.selezionaPrenotazione(this.codicePrenotazioneDaModificare)
         .subscribe(prenotazione => {
           this.model = prenotazione;
-          console.log(prenotazione);
-          console.log(prenotazione.veicolo);
           this.codiceFiscaleUtentePrenotazione = prenotazione.utente.codiceFiscale;
         });
       this.creaPrenotazioneButtonProperties = {
@@ -106,5 +104,11 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
           this.error = 'Errore: La prenotazione non è stata inserita!\n' + error;
           console.log(this.error);
         });
+  }
+
+  veicoloSelezionato( veicolo1, veicolo2 ): boolean {
+    if (veicolo1 != null && veicolo2 != null) {
+      return veicolo1.id === veicolo2.id;
+    }
   }
 }

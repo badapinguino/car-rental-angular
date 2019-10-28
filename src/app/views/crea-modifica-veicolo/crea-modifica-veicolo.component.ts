@@ -65,7 +65,6 @@ export class CreaModificaVeicoloComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: inserire l'onsubmit
 
     this.error = '';
     this.successMessage = '';

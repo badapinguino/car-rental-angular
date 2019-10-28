@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import * as _ from 'lodash';
 import {PipeOrderByPipe} from './pipe-order-by.pipe';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
@@ -6,6 +6,8 @@ import {RestApi} from '../../services/rest-api.enum';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApiRequests} from '../../services/rest-api-requests';
 import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-custom-table',
@@ -45,8 +47,12 @@ export class CustomTableComponent implements OnInit, OnChanges {
 
   private listaElementiFiltrata: any[];
   private inputUtente = '';
+  private closeResult: boolean;
 
-  constructor(public restApiService: RestApiRequests, private router: Router) {  }
+  // modale
+  @ViewChild('modale', {static: false}) private modaleConfermaEliminazione: TemplateRef<Object>;
+
+  constructor(public restApiService: RestApiRequests, private router: Router, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.operationsOnChangeOnInit();
@@ -181,7 +187,18 @@ export class CustomTableComponent implements OnInit, OnChanges {
           risultato = this.restApiService.doPost(elemento, url);
           break;
         case 'DELETE':
-          risultato = this.restApiService.doDelete(id, url);
+          this.open(this.modaleConfermaEliminazione).subscribe(
+            data => {
+              if (data) {
+                console.log(this.closeResult);
+                risultato = this.restApiService.doDelete(id, url);
+              }
+            }
+          );
+          // console.log(this.closeResult);
+          // if (this.closeResult) {
+          //   risultato = this.restApiService.doDelete(id, url);
+          // }
           break;
         case 'UPDATE':
           risultato = this.restApiService.doUpdate(id, elemento, url);
@@ -194,5 +211,16 @@ export class CustomTableComponent implements OnInit, OnChanges {
         });
       }
     }
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      risultato = this.restApiService.doDelete(id, url);
+      return true;
+    }, (reason) => {
+      // this.closeResult = `Dismissed reason`;
+      return false;
+    });
   }
 }

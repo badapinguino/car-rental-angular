@@ -15,6 +15,7 @@
         <select class="form-control" id="veicolo"
                 required
                 [(ngModel)]="model.veicolo" name="veicolo"
+                [compareWith]="veicoloSelezionato"
                 #veicolo="ngModel">
           <option *ngFor="let mezzo of listaVeicoli" [ngValue]="mezzo">
             {{mezzo.codiceMezzo}}. {{mezzo.casaCostruttrice}} {{mezzo.modello}}.

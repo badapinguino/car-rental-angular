@@ -21,6 +21,8 @@ import { ParcoAutoComponent } from './views/parco-auto/parco-auto.component';
 import { CreaModificaVeicoloComponent } from './views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenotazioni-utente.component';
 import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import { CustomModalDeleteComponent } from './custom-components/custom-modal-delete/custom-modal-delete.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenota
     ParcoAutoComponent,
     CreaModificaVeicoloComponent,
     PrenotazioniUtenteComponent,
-    CreaModificaPrenotazioneComponent
+    CreaModificaPrenotazioneComponent//,
+    // CustomModalDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenota
     HttpClientModule,
     RouterModule,
     RoutingModuleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
