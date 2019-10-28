@@ -5,7 +5,6 @@
   <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
   <br>
   <h4 class="text-center text-primary">{{titoloPagina}}</h4>
-  <!-- TODO: Inserire form template driven -->
   <form *ngIf="model" (ngSubmit)="veicoloForm.form.valid && onSubmit()" #veicoloForm="ngForm">
     <div class="form-group">
       <div class="row">
@@ -88,6 +87,5 @@
       </div>
     </div>
     <app-custom-button [buttonProperties]="creaVeicoloButtonProperties"></app-custom-button>
-<!--    <button type="submit" class="btn btn-primary" [disabled]="!veicoloForm.form.valid">Inserisci veicolo</button>-->
   </form>
 </div>

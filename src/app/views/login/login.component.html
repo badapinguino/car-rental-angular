@@ -1,17 +1,3 @@
-<!--<form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> &lt;!&ndash; method="post" &ndash;&gt;-->
-<!--  <div class="form-group">-->
-<!--    <label for="codiceFiscaleLogin">Codice fiscale</label>-->
-<!--    <input type="text" class="form-control" id="codiceFiscaleLogin" name="codiceFiscaleLogin" value="BDGDNL97C12F704S"/>-->
-<!--  </div>-->
-<!--  <div class="form-group">-->
-<!--    <label for="password">Password</label>-->
-<!--    <input type="password" class="form-control" id="password" name="password" value="1234"/>-->
-<!--  </div>-->
-<!--  <div class="text-center">-->
-<!--    <button class="btn btn-success">Login</button>-->
-<!--  </div>-->
-<!--</form>-->
-
 <div class="container col-md-6 col-md-offset-6">
   <br>
   <div *ngIf="error" class="alert alert-danger">{{error}}</div>
@@ -37,7 +23,6 @@
     <div class="form-group">
       <app-custom-button [buttonProperties]="loginButtonProperties"></app-custom-button>&nbsp;
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 text-success"></span>
-  <!--    <a routerLink="/register" class="btn btn-link">Register</a>-->
     </div>
   </form>
 </div>

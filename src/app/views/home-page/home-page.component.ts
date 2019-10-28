@@ -18,8 +18,6 @@ export class HomePageComponent implements OnInit {
 
   currentUser: Utente;
 
-  // come gestire i due utenti? Se metto solo un controllo nell'html qualcuno potrebbe comunque visualizzare
-  // l'indirzzo del pulsante per creare un nuovo user
   creaUtentePulsanteProprieta: CustomButtonProperties = {
     testo: 'Crea un nuovo customer',
     buttonTypeBootstrap: 'btn-primary',
@@ -49,14 +47,6 @@ export class HomePageComponent implements OnInit {
       key: 'superuser',
       label: 'Amministratore'
     }
-    // {
-    //   key: 'password_utente',
-    //   label: 'Password'
-    // },
-    // {
-    //   key: 'immagine',
-    //   label: 'Immagine'
-    // }
   ];
 
   listaHeaderPulsanti: HeaderCustomTable[] = [
@@ -84,7 +74,6 @@ export class HomePageComponent implements OnInit {
       testo: 'Elimina',
       buttonTypeBootstrap: 'btn-danger',
       urlRestApi: 'http://localhost:8080/api/utenti/',
-      // queryParameters: {queryParams: {codiceFiscale: ''}}
       restApi: RestApi.Delete
     },
     {
@@ -100,7 +89,6 @@ export class HomePageComponent implements OnInit {
     private utentiService: UtentiService
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    // this.authenticationService.currentUserSuperuser.subscribe(superuser => this.currentUserSuperuser = superuser);
   }
 
   ngOnInit(): void {

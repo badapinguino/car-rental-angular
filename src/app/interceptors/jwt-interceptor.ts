@@ -14,8 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
     const isLoggedIn = currentUser && currentJwtToken;
     const isApiUrl = request.url.startsWith('http://localhost:8080/api/');
     // la prima richiesta non può essere loggato, quindi tolgo isLoggedIn
-    if (/*isLoggedIn &&*/ isApiUrl) {
-      request = request.clone({ // `${currentJwtToken}`
+    if (isApiUrl) {
+      request = request.clone({
         setHeaders: {
           'X-Auth' : currentJwtToken
         },

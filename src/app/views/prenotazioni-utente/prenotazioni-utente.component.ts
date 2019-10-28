@@ -94,7 +94,6 @@ export class PrenotazioniUtenteComponent implements OnInit {
     } else {
       this.codiceFiscaleUtentePrenotazioni = this.route.snapshot.queryParamMap.get('codiceFiscale');
     }
-    // this.listaPulsanti[0].url = '/creaModificaPrenotazione?codiceFiscale=' + this.codiceFiscaleUtentePrenotazioni;
 
     if (this.codiceFiscaleUtentePrenotazioni) {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtentePrenotazioni)

@@ -21,10 +21,6 @@ import { ParcoAutoComponent } from './views/parco-auto/parco-auto.component';
 import { CreaModificaVeicoloComponent } from './views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenotazioni-utente.component';
 import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
-// import {fakeBackendProvider} from './interceptors/fake-backend';
-
-// used to create fake backend
-
 
 @NgModule({
   declarations: [
@@ -48,15 +44,12 @@ import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenota
     HttpClientModule,
     RouterModule,
     RoutingModuleModule,
-    ReactiveFormsModule,
-    // including into imports
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-    // provider used to create fake backend
-    // fakeBackendProvider,
     RestApiRequests
   ],
   bootstrap: [AppComponent]

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Veicolo} from '../../model/veicolo';
-import {Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {VeicoliService} from '../../services/veicoli.service';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
-import {Utente} from '../../model/utente';
 import {first} from 'rxjs/operators';
 
 @Component({
@@ -66,7 +64,6 @@ export class CreaModificaVeicoloComponent implements OnInit {
   onSubmit() {
     // TODO: inserire l'onsubmit
 
-    // this.submitted = true;
     this.error = '';
     this.successMessage = '';
     this.warningMessage = '';
@@ -85,11 +82,6 @@ export class CreaModificaVeicoloComponent implements OnInit {
       this.error = 'ERRORE: L\'anno del veicolo non può essere antecedente al 1900.';
       return;
     }
-
-    // stop here if form is invalid
-    // if (this.model.form.invalid) {
-    //   return;
-    // }
 
     this.veicoliService.selezionaVeicolo(this.model.codiceMezzo + '')
       .subscribe( data => {

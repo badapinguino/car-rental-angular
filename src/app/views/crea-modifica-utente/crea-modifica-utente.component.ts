@@ -50,7 +50,6 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             cognome: [data.cognome, [Validators.required, Validators.maxLength(80)]],
             codiceFiscale: [{value: data.codiceFiscale, disabled: true},
               [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
-            // password: [data.password, [Validators.required, Validators.maxLength(42)]],
             password: ['', [Validators.required]],
             dataNascita: [data.dataNascita, Validators.required],
             superuser: [data.superuser],
@@ -80,12 +79,6 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
       });
     }
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log('never triggered!!!');
-  //   console.log(changes);
-  //   this.onInitOnChanges();
-  // }
 
   get f() { return this.utenteForm.controls; }
 
@@ -135,15 +128,6 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
           };
         }
 
-        // const utente: Utente = {
-        //   nome: this.f.nome.value,
-        //   cognome: this.f.cognome.value,
-        //   dataNascita: this.f.dataNascita.value,
-        //   codiceFiscale: this.f.codiceFiscale.value,
-        //   superuser: this.f.superuser.value,
-        //   password: this.f.password_utente.value
-        // };
-
         this.utentiService.salvaUtente(utente)
           .pipe(first())
           .subscribe(
@@ -176,24 +160,3 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   }
 
 }
-
-
-// import { FormControl } from '@angular/forms';
-//
-// function validateCodiceFiscale(c: FormControl) {
-//
-//   this.utentiService.selezionaUtente(c.value)
-//     .subscribe( data => {
-//       this.utenteGiaEsistente = data;
-//       if (this.utenteGiaEsistente != null) {
-//         return { validateCodiceFiscale: {
-//             valid: false
-//           }
-//         };
-//       } else {
-//         return null;
-//       }
-//     });
-//
-//   return null;
-// }

@@ -1,13 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
 
-// @Directive({
-//   selector: '[appMyInheritLink]'
-// })
-// export class MyInheritLinkDirective {
-//
-//   constructor() { }
-//
-// }
 
 @Directive({
   selector : '[href]'

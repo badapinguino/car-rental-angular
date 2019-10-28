@@ -27,17 +27,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
 
   private titoloPagina = 'Crea o modifica una prenotazione';
   model: Prenotazione;
-  // listaTipologiaVeicoli = [
-  //   'Berlina',
-  //   'City car',
-  //   'Furgone',
-  //   'Lusso',
-  //   'Monovolume',
-  //   'Sportiva',
-  //   'Supercar',
-  //   'Suv',
-  //   'Utilitaria'
-  // ];
   private codicePrenotazioneDaModificare: number;
   private codiceFiscaleUtentePrenotazione: string;
   private listaVeicoli: Veicolo[];
@@ -101,39 +90,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
     this.successMessage = '';
     this.warningMessage = '';
 
-    // TODO: Controlli su date inizio e fine:
-    // if (this.model.prezzoGiornata <= 0) {
-    //   this.error = 'ERRORE: Il prezzo del veicolo deve essere maggiore di 0€.';
-    //   return;
-    // }
-    // // controllo se l'anno
-    // const annoVeicolo = this.model.anno;
-    // if (annoVeicolo > (new Date().getFullYear() + 1)) {
-    //   this.error = 'ERRORE: L\'anno del veicolo non può essere superiore all\'anno successivo quello attuale.';
-    //   return;
-    // }
-    // if (annoVeicolo < 1900) {
-    //   this.error = 'ERRORE: L\'anno del veicolo non può essere antecedente al 1900.';
-    //   return;
-    // }
-
-    // stop here if form is invalid
-    // if (this.model.form.invalid) {
-    //   return;
-    // }
-
-    // CONTROLLO NON DA FARE PERCHE' id è già chiave primaria quindi dovrebbe già essere completo il campo dalla get per la modifica onInit
-    // this.prenotazioniService.selezionaPrenotazione(this.model.veicolo + '')
-    //   .subscribe( data => {
-    //     this.veicoloGiaEsistente = data;
-    //     let veicolo: Veicolo;
-    //     if (this.veicoloGiaEsistente != null) {
-    //       veicolo = this.model;
-    //       veicolo.id = data.id;
-    //     } else {
-    //       veicolo = this.model;
-    //     }
-
     const prenotazione = this.model;
     console.log(prenotazione);
     this.prenotazioniService.salvaPrenotazione(prenotazione)
@@ -147,8 +103,5 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
           this.error = 'Errore: La prenotazione non è stata inserita!\n' + error;
           console.log(this.error);
         });
-
-      // });
-
   }
 }

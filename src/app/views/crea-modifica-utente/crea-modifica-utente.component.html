@@ -30,7 +30,6 @@
     <br>
     <label for="dataNascita">Data di nascita</label>
     <input id="dataNascita" type="date" formControlName="dataNascita" class="form-control" required>
-    <!--         [ngClass]="{ 'is-invalid': submitted && f.dataNascita.errors }"/>-->
     <div *ngIf="submitted && f.dataNascita.errors" class="invalid-feedback">
       <div *ngIf="f.dataNascita.errors.required">La data di nascita non può essere vuota</div>
     </div>
@@ -50,7 +49,6 @@
            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
       <div *ngIf="f.password.errors.required">La password è obbligatoria</div>
-      <!--    <div *ngIf="f.password.errors.maxlength">La password non può essere più lunga di 42 caratteri</div>-->
     </div>
     <br>
     <div class="form-group">

@@ -45,20 +45,6 @@ export class CustomTableComponent implements OnInit, OnChanges {
 
   private listaElementiFiltrata: any[];
   private inputUtente = '';
-  // come controllo se il tipo è un'array o no? se non è array devo ricrearlo aggiungendo le graffe come stringa?
-
-  // metto un output per avere un modo di prendere i dati del click dei bottoni anche dall'esterno della tabella
-  // @Output() buttonClickedData: EventEmitter<any> = new EventEmitter();
-
-  // buttonProperties5: CustomButtonProperties = {
-  //   testo: 'Get all utenti',
-  //   // type?: string;
-  //   nameMaterialIcon: 'face',
-  //   buttonTypeBootstrap: 'btn-danger',
-  //   url: 'https://7bc40c7b-99da-48af-b5bb-acd4ef31eb79.mock.pstmn.io/selezionaTuttiUtenti',
-  //   restApi: RestApi.Get
-  // };
-
 
   constructor(public restApiService: RestApiRequests, private router: Router) {  }
 
@@ -170,24 +156,14 @@ export class CustomTableComponent implements OnInit, OnChanges {
 
     const re = new RegExp(this.inputUtente, 'gi');
 
-      // "mystring".replace(re, "newstring");
-
     this.listaElementiFiltrata = _.filter(this.listaElementi,
       obj =>  re.test(obj[this.radioSelected])
     );
     console.log(this.listaElementiFiltrata);
-    // controllare poi con listaElementiOrdinati
 
     this.listaElementiSliced = this.listaElementiOrdinatiOnPageFilter(1);
     console.log(this.listaElementiSliced);
   }
-
-  // onRichiestaRest(risultato: any) {
-  //   this.buttonClickedData.emit(risultato);
-  //   // this.setPage(1);
-  //   // QUI METTERE ONCHANGE ARRAY SLICED
-  //   this.operationsOnChangeOnInit();
-  // }
 
   onClickButtonRequest(url: string, restApi: RestApi, elemento?: any, id?: any): any | any[] {
     if (url != null) {
@@ -214,17 +190,9 @@ export class CustomTableComponent implements OnInit, OnChanges {
       if (risultato != null) {
         risultato.subscribe(data => {
           console.log(data);
-          // console.log(JSON.parse(data + ''));
-          // this.risultato = data;
           this.buttonClickedData.emit(data);
-          // window.location.reload();
-          // const something = window.open('data:text/html,' + encodeURIComponent(this.risultatoRichiesta),
-          //   '_blank');
-          // something.focus();
         });
       }
-      // problema: come faccio per passare i parametri della delete, post e update? Il form me li passa automaticamente?
-      // va bene anche se uso il button nel form e non il submit, io ho messo la possibilità di inserire come type submit, funziona?
     }
   }
 }

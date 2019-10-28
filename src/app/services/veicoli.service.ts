@@ -11,7 +11,7 @@ import {Veicolo} from '../model/veicolo';
 export class VeicoliService {
   @Output() risultatoRichiesta: EventEmitter<any> = new EventEmitter();
 
-  constructor(private http: HttpClient /*private restApiRequest: RestApiRequests*/) { }
+  constructor(private http: HttpClient) { }
 
   // Http Options
   httpOptions = {
@@ -36,15 +36,6 @@ export class VeicoliService {
 
   // Error handling
   handleError(error) {
-    // let errorMessage = '';
-    // if (error.error instanceof ErrorEvent) {
-    //   // Get client-side error
-    //   errorMessage = error.error.message;
-    // } else {
-    //   // Get server-side error
-    //   errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    // }
-    // // window.alert(errorMessage);
     return throwError(error);
   }
 

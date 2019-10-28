@@ -7,5 +7,4 @@ export interface Veicolo {
   anno?: number;
   tipologia?: string;
   prezzoGiornata?: number;
-  // in teoria ci sarebbe un set di prenotazioni
 }

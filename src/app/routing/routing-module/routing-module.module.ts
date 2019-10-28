@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from '../../views/login/login.component';
-import {AppComponent} from '../../app.component';
 import {AuthGuard} from '../../services/auth-guard.guard';
 import {HomePageComponent} from '../../views/home-page/home-page.component';
 import {CreaModificaUtenteComponent} from '../../views/crea-modifica-utente/crea-modifica-utente.component';
@@ -12,10 +11,6 @@ import {PrenotazioniUtenteComponent} from '../../views/prenotazioni-utente/preno
 import {CreaModificaPrenotazioneComponent} from '../../views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: AppComponent
-  // },
   {
     path: 'homePage',
     component: HomePageComponent,

@@ -4,7 +4,6 @@
 <span *ngIf="currentUser.superuser===true">
 
   <app-custom-button [buttonProperties]="creaUtentePulsanteProprieta"></app-custom-button><br><br>
-    <!--<div *ngIf="listaUtenti?inizializzaListaUtentiTabella():false">;</div>-->
   <app-custom-table *ngIf="listaUtenti"
                     [listaElementi]="listaUtenti"
                     [listaHeader]="listaHeaderUtenti"
