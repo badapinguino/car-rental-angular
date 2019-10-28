@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
+import {Title} from '@angular/platform-browser';
 
 
 
@@ -18,12 +19,14 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private titleService: Title
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
+    this.titleService.setTitle('Login Car Rental');
   }
 
   // convenience getter for easy access to form fields

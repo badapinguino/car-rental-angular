@@ -8,6 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 import {UtentiService} from '../../services/utenti.service';
 import {Utente} from '../../model/utente';
 import {AuthenticationService} from '../../services/authentication.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-prenotazioni-utente',
@@ -26,8 +27,10 @@ export class PrenotazioniUtenteComponent implements OnInit {
     private prenotazioniService: PrenotazioniService,
     private route: ActivatedRoute,
     private utentiService: UtentiService,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private titleService: Title) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      this.titleService.setTitle('Prenotazioni');
   }
 
   creaPrenotazionePulsanteProprieta: CustomButtonProperties = {

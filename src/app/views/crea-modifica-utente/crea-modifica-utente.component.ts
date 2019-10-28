@@ -6,6 +6,7 @@ import {UtentiService} from '../../services/utenti.service';
 import {Utente} from '../../model/utente';
 import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-crea-modifica-utente',
@@ -31,8 +32,10 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   constructor(private formBuilder: FormBuilder,
               private utentiService: UtentiService,
               private route: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private titleService: Title) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.titleService.setTitle('Crea o modifica un utente');
   }
 
   ngOnInit() {

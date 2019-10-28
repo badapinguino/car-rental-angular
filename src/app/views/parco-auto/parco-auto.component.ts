@@ -7,6 +7,7 @@ import {Veicolo} from '../../model/veicolo';
 import {VeicoliService} from '../../services/veicoli.service';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Utente} from '../../model/utente';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-parco-auto',
@@ -16,8 +17,9 @@ import {Utente} from '../../model/utente';
 export class ParcoAutoComponent implements OnInit {
   private currentUser: Utente;
 
-  constructor(private veicoliService: VeicoliService, private authenticationService: AuthenticationService) {
+  constructor(private veicoliService: VeicoliService, private authenticationService: AuthenticationService, private titleService: Title) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.titleService.setTitle('Parco auto');
   }
 
   creaVeicoloPulsanteProprieta: CustomButtonProperties = {

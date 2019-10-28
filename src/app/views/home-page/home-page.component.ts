@@ -8,6 +8,7 @@ import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApi} from '../../services/rest-api.enum';
 import {map} from 'rxjs/operators';
 import {CustomTableComponent} from '../../custom-components/custom-table/custom-table.component';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home-page',
@@ -86,9 +87,11 @@ export class HomePageComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private utentiService: UtentiService
+    private utentiService: UtentiService,
+    private titleService: Title
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.titleService.setTitle('Home Page');
   }
 
   ngOnInit(): void {

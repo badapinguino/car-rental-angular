@@ -9,6 +9,7 @@ import {PrenotazioniService} from '../../services/prenotazioni.service';
 import {UtentiService} from '../../services/utenti.service';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Utente} from '../../model/utente';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-crea-modifica-prenotazione',
@@ -37,9 +38,11 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
     private prenotazioniService: PrenotazioniService,
     private veicoliService: VeicoliService,
     private utentiService: UtentiService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private titleService: Title
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.titleService.setTitle('Crea o modifica una prenotazione');
   }
 
   ngOnInit() {

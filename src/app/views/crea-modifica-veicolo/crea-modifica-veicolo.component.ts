@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {VeicoliService} from '../../services/veicoli.service';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {first} from 'rxjs/operators';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-crea-modifica-veicolo',
@@ -35,7 +36,9 @@ export class CreaModificaVeicoloComponent implements OnInit {
   ];
   private codiceMezzoVeicoloDaModificare: string;
 
-  constructor(private route: ActivatedRoute, private veicoliService: VeicoliService) { }
+  constructor(private route: ActivatedRoute, private veicoliService: VeicoliService, private titleService: Title) {
+    this.titleService.setTitle('Crea o modifica un veicolo');
+  }
 
   ngOnInit() {
     this.codiceMezzoVeicoloDaModificare = this.route.snapshot.queryParamMap.get('codiceMezzo');
