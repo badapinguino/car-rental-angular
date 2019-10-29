@@ -28,6 +28,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   private codiceFiscaleUtenteDaModificare: string;
   private currentUser: Utente;
   private codiceFiscaleValidationTrue: boolean;
+  private immagineSelezionata: any;
 
   constructor(private formBuilder: FormBuilder,
               private utentiService: UtentiService,
@@ -118,7 +119,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
             password: this.f.password.value,
-            id: data.id
+            immagine: this.utenteGiaEsistente.immagine,
+            id: this.utenteGiaEsistente.id
           };
         } else {
           utente = {
@@ -135,7 +137,19 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
           .pipe(first())
           .subscribe(
             dati => {
-              this.successMessage = 'Utente inserito correttamente';
+              this.successMessage = 'Utente inserito correttamente.';
+
+              if (this.immagineSelezionata != null) {
+
+                this.utentiService.uploadImmagine(this.immagineSelezionata, utente.codiceFiscale + '').subscribe(
+                  res => this.successMessage += '\nImmagine inserita correttamente.',
+                  err => {
+                    this.warningMessage =
+                      'Errore durante il caricamento dell\'immagine. Probabilmente la dimensione del file è troppo grande.';
+                    console.log(err);
+                  }
+                );
+              }
             },
             error => {
               this.error = 'ERRORE: ' + error;
@@ -162,4 +176,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
       });
   }
 
+  handleImages(Event) {
+    this.immagineSelezionata = Event.target.files[0];
+    console.log(this.immagineSelezionata);
+  }
 }

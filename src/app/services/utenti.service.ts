@@ -50,9 +50,13 @@ export class UtentiService {
       );
   }
 
-  // TODO: da rimuovere perché assieme a salva
-  aggiornaUtente(utente: Utente): Observable<Utente> {
-    return this.http.put<Utente>('http://localhost:8080/api/utenti/' + utente.id, JSON.stringify(utente), this.httpOptions)
+
+  uploadImmagine(immagineSelezionata: any, utenteId: string) {
+    // Instantiate a FormData to store form fields and encode the file
+    const body = new FormData();
+    // Add file content to prepare the request
+    body.append('file', immagineSelezionata);
+    return this.http.post('http://localhost:8080/api/upload/' + utenteId, body)
       .pipe(
         retry(1),
         catchError(this.handleError)

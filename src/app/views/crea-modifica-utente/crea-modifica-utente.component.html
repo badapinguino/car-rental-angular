@@ -52,6 +52,9 @@
       <div *ngIf="f.password.errors.required">La password è obbligatoria</div>
     </div>
     <br>
+
+    <input type="file" (change)='handleImages($event)' >
+
     <div class="form-group">
       <app-custom-button [buttonProperties]="creaUtenteButtonProperties"></app-custom-button>
     </div>
