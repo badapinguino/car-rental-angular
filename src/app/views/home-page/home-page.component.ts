@@ -67,12 +67,12 @@ export class HomePageComponent implements OnInit {
 
   listaPulsanti: CustomButtonProperties[] = [
     {
-      testo: 'Modifica',
-      buttonTypeBootstrap: 'btn-outline-primary',
+      nameMaterialIcon: 'edit',
+      buttonTypeBootstrap: 'btn-outline-warning',
       url: '/creaModificaUtente'
     },
     {
-      testo: 'Elimina',
+      nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
       urlRestApi: 'http://localhost:8080/api/utenti/',
       restApi: RestApi.Delete

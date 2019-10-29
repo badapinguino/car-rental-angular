@@ -74,12 +74,14 @@ export class ParcoAutoComponent implements OnInit {
 
   listaPulsanti: CustomButtonProperties[] = [
     {
-      testo: 'Modifica',
-      buttonTypeBootstrap: 'btn-outline-primary',
+      // testo: 'Modifica',
+      nameMaterialIcon: 'edit',
+      buttonTypeBootstrap: 'btn-outline-warning',
       url: '/creaModificaVeicolo'
     },
     {
-      testo: 'Elimina',
+      // testo: 'Elimina',
+      nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
       urlRestApi: 'http://localhost:8080/api/veicoli/',
       restApi: RestApi.Delete

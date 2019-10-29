@@ -187,14 +187,7 @@ export class CustomTableComponent implements OnInit, OnChanges {
           risultato = this.restApiService.doPost(elemento, url);
           break;
         case 'DELETE':
-          this.open(this.modaleConfermaEliminazione).subscribe(
-            data => {
-              if (data) {
-                console.log(this.closeResult);
-                risultato = this.restApiService.doDelete(id, url);
-              }
-            }
-          );
+          this.open(this.modaleConfermaEliminazione, url, id);
           // console.log(this.closeResult);
           // if (this.closeResult) {
           //   risultato = this.restApiService.doDelete(id, url);
@@ -213,10 +206,12 @@ export class CustomTableComponent implements OnInit, OnChanges {
     }
   }
 
-  open(content) {
+  open(content, url: string, id: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
-      risultato = this.restApiService.doDelete(id, url);
+      this.restApiService.doDelete(id, url).subscribe(data => {
+        this.buttonClickedData.emit(data);
+      });
       return true;
     }, (reason) => {
       // this.closeResult = `Dismissed reason`;

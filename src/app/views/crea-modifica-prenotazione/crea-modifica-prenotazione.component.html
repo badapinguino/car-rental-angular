@@ -22,7 +22,7 @@
             Tipologia: {{mezzo.tipologia}}. Prezzo: {{mezzo.prezzoGiornata}}€ al giorno.
           </option>
         </select>
-        <div [hidden]="veicolo.valid || veicolo.pristine" class="alert alert-danger">
+        <div [hidden]="veicolo.valid" class="alert alert-danger">
           Il veicolo non può essere vuoto.
         </div>
       </div>
@@ -33,7 +33,7 @@
                required
                [(ngModel)]="model.dataInizio" name="dataInizio"
                #dataInizio="ngModel">
-        <div [hidden]="dataInizio.valid || dataInizio.pristine" class="alert alert-danger">
+        <div [hidden]="dataInizio.valid" class="alert alert-danger">
           La data di inizio non può essere vuota.
         </div>
       </div>
@@ -44,7 +44,7 @@
                required
                [(ngModel)]="model.dataFine" name="dataFine"
                #dataFine="ngModel">
-        <div [hidden]="dataFine.valid || dataFine.pristine" class="alert alert-danger">
+        <div [hidden]="dataFine.valid" class="alert alert-danger">
           La data di fine non può essere vuota.
         </div>
       </div>

@@ -29,7 +29,8 @@
     </div>
     <br>
     <label for="dataNascita">Data di nascita</label>
-    <input id="dataNascita" type="date" formControlName="dataNascita" class="form-control" required>
+    <input id="dataNascita" type="date" formControlName="dataNascita" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.dataNascita.errors }" required>
     <div *ngIf="submitted && f.dataNascita.errors" class="invalid-feedback">
       <div *ngIf="f.dataNascita.errors.required">La data di nascita non può essere vuota</div>
     </div>
@@ -37,14 +38,14 @@
     <label for="codiceFiscale">Codice Fiscale</label>
     <input id="codiceFiscale" type="text" formControlName="codiceFiscale" class="form-control"
            [ngClass]="{ 'is-invalid': submitted && f.codiceFiscale.errors }" maxlength="16" minlength="16"
-           (input)="onTypeCodiceFiscale($event.target.value)" autocomplete="new-password"/><br>
+           (input)="onTypeCodiceFiscale($event.target.value)" autocomplete="new-password"/>
     <div *ngIf="submitted && f.codiceFiscale.errors" class="invalid-feedback">
       <div *ngIf="f.codiceFiscale.errors.required">Il codice fiscale non può essere vuoto</div>
       <div *ngIf="f.codiceFiscale.errors.maxlength">Il codice fiscale deve essere lungo 16 caratteri</div>
       <div *ngIf="f.codiceFiscale.errors.minlength">Il codice fiscale deve essere lungo 16 caratteri</div>
     </div>
     <div *ngIf="codiceFiscaleValidationTrue" class="invalid-feedback text-warning">{{codiceFiscaleValidation}}</div> <!-- NON ME LO STAMPA -->
-    <label for="password">Password</label>
+    <br><label for="password">Password</label>
     <input id="password" type="password" formControlName="password" class="form-control" autocomplete="new-password"
            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">

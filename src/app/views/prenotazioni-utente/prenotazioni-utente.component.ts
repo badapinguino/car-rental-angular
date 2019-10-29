@@ -79,12 +79,12 @@ export class PrenotazioniUtenteComponent implements OnInit {
 
   listaPulsanti: CustomButtonProperties[] = [
     {
-      testo: 'Modifica',
-      buttonTypeBootstrap: 'btn-outline-primary',
+      nameMaterialIcon: 'edit',
+      buttonTypeBootstrap: 'btn-outline-warning',
       url: '/creaModificaPrenotazione'
     },
     {
-      testo: 'Elimina',
+      nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
       urlRestApi: 'http://localhost:8080/api/prenotazioni/',
       restApi: RestApi.Delete
