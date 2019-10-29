@@ -142,10 +142,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
               if (this.immagineSelezionata != null) {
 
                 this.utentiService.uploadImmagine(this.immagineSelezionata, utente.codiceFiscale + '').subscribe(
-                  res => {
-                    this.successMessage += '\nImmagine inserita correttamente.';
-                    // this.onInitOnChanges();
-                  },
+                  res => this.successMessage += '\nImmagine inserita correttamente.',
                   err => {
                     this.warningMessage =
                       'Errore durante il caricamento dell\'immagine. Probabilmente la dimensione del file è troppo grande.';
