@@ -22,6 +22,7 @@ import { CreaModificaVeicoloComponent } from './views/crea-modifica-veicolo/crea
 import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenotazioni-utente.component';
 import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SecurePipe } from './_pipe/secure.pipe';
 // import { CustomModalDeleteComponent } from './custom-components/custom-modal-delete/custom-modal-delete.component';
 
 @NgModule({
@@ -38,7 +39,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ParcoAutoComponent,
     CreaModificaVeicoloComponent,
     PrenotazioniUtenteComponent,
-    CreaModificaPrenotazioneComponent//,
+    CreaModificaPrenotazioneComponent,
+    SecurePipe//,
     // CustomModalDeleteComponent
   ],
   imports: [

@@ -6,7 +6,18 @@
   <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
   <br>
   <h4 class="text-center text-primary">{{titoloPagina}}</h4>
+
+
+
+
+
   <form *ngIf="utenteForm" [formGroup]="utenteForm" (ngSubmit)="onSubmit()">
+
+
+    <img *ngIf="f.immagine.value!=null && f.immagine.value!=''" [attr.src]="'http://localhost:8080/api/immagineProfilo/' + f.codiceFiscale.value | secure | async" alt="Immagine del profilo" style="width: 20%; margin-left: auto; margin-right: auto; display: block;"
+         class="img-thumbnail" >
+
+
     <div class="form-row">
       <div class="col">
         <label for="nome">Nome</label>
@@ -53,8 +64,8 @@
     </div>
     <br>
 
-    <input type="file" (change)='handleImages($event)' >
-
+    <input type="file" class="form-control-file" (change)='handleImages($event)' >
+    <br>
     <div class="form-group">
       <app-custom-button [buttonProperties]="creaUtenteButtonProperties"></app-custom-button>
     </div>
