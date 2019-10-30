@@ -160,7 +160,7 @@ export class CustomTableComponent implements OnInit, OnChanges {
     // la colonna selezionata dal radio button è radioSelected
     const radioSelectedString = this.radioSelected;
 
-    const re = new RegExp(this.inputUtente, 'gi');
+    const re = new RegExp(this.inputUtente, 'i');
 
     this.listaElementiFiltrata = _.filter(this.listaElementi,
       obj =>  re.test(obj[this.radioSelected])
