@@ -7,7 +7,9 @@ import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApiRequests} from '../../services/rest-api-requests';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModaleEliminazioneComponent} from '../../custom-modal/modale-eliminazione/modale-eliminazione.component';
 import {Observable} from 'rxjs';
+import {ModaleConfermaComponent} from '../../custom-modal/modale-conferma/modale-conferma.component';
 
 @Component({
   selector: 'app-custom-table',
@@ -51,11 +53,16 @@ export class CustomTableComponent implements OnInit, OnChanges {
 
   // modale
   @ViewChild('modale', {static: false}) private modaleConfermaEliminazione: TemplateRef<Object>;
+  // @ViewChild('modale', {static: false}) private modaleConfermaEliminazione: ModaleConfermaComponent;
+  private urlEliminazioneAttuale: string;
+  private idEliminazioneAttuale: string;
 
   constructor(public restApiService: RestApiRequests, private router: Router, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.operationsOnChangeOnInit();
+    this.urlEliminazioneAttuale = null;
+    this.idEliminazioneAttuale = null;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -187,7 +194,10 @@ export class CustomTableComponent implements OnInit, OnChanges {
           risultato = this.restApiService.doPost(elemento, url);
           break;
         case 'DELETE':
-          this.open(this.modaleConfermaEliminazione, url, id);
+          this.open(ModaleEliminazioneComponent, url, id);
+
+          // this.modalService.open(this.modaleConfermaEliminazione);
+
           // console.log(this.closeResult);
           // if (this.closeResult) {
           //   risultato = this.restApiService.doDelete(id, url);
@@ -206,6 +216,8 @@ export class CustomTableComponent implements OnInit, OnChanges {
     }
   }
 
+
+
   open(content, url: string, id: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
@@ -218,4 +230,18 @@ export class CustomTableComponent implements OnInit, OnChanges {
       return false;
     });
   }
+
+  // open(content, url: string, id: any) {
+  //   this.urlEliminazioneAttuale = url;
+  //   this.idEliminazioneAttuale = id;
+  //   this.modalService.open(content);
+  // }
+  //
+  // bottoneEliminaModaleClicked() {
+  //   this.restApiService.doDelete(this.idEliminazioneAttuale, this.urlEliminazioneAttuale).subscribe(data => {
+  //     this.buttonClickedData.emit(data);
+  //     this.urlEliminazioneAttuale = null;
+  //     this.idEliminazioneAttuale = null;
+  //   });
+  // }
 }

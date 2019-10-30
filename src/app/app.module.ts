@@ -21,8 +21,10 @@ import { ParcoAutoComponent } from './views/parco-auto/parco-auto.component';
 import { CreaModificaVeicoloComponent } from './views/crea-modifica-veicolo/crea-modifica-veicolo.component';
 import { PrenotazioniUtenteComponent } from './views/prenotazioni-utente/prenotazioni-utente.component';
 import { CreaModificaPrenotazioneComponent } from './views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SecurePipe } from './_pipe/secure.pipe';
+import { ModaleConfermaComponent } from './custom-modal/modale-conferma/modale-conferma.component';
+import { ModaleEliminazioneComponent } from './custom-modal/modale-eliminazione/modale-eliminazione.component';
 // import { CustomModalDeleteComponent } from './custom-components/custom-modal-delete/custom-modal-delete.component';
 
 @NgModule({
@@ -40,7 +42,10 @@ import { SecurePipe } from './_pipe/secure.pipe';
     CreaModificaVeicoloComponent,
     PrenotazioniUtenteComponent,
     CreaModificaPrenotazioneComponent,
-    SecurePipe//,
+    SecurePipe,
+    ModaleConfermaComponent,
+    ModaleEliminazioneComponent
+    // ,
     // CustomModalDeleteComponent
   ],
   imports: [
@@ -56,8 +61,10 @@ import { SecurePipe } from './_pipe/secure.pipe';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
+    NgbActiveModal,
     RestApiRequests
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModaleEliminazioneComponent]
 })
 export class AppModule { }

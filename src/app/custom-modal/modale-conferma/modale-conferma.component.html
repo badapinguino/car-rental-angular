@@ -1,0 +1,26 @@
+<!--<ng-template #modaleConferma let-modal>-->
+  <div class="modal-header">
+    <div class="modal-title" id="modal-title">
+      <ng-content select="h4"></ng-content>
+    </div>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>
+      <ng-content></ng-content>
+    </strong></p>
+    <p>
+      <span class="text-danger">
+        <ng-content select="div"></ng-content>
+      </span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <ng-content select="footer">
+    </ng-content>
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close('Ok click')">Ok</button>
+  </div>
+<!--</ng-template>-->
