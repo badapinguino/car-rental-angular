@@ -5,6 +5,7 @@ export interface Utente {
   nome?: string;
   dataNascita?: string;
   superuser?: boolean;
+  vecchiaPassword?: string;
   password?: string;
   immagine?: string;
 }

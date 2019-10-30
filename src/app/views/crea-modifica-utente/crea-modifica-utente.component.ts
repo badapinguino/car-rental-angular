@@ -58,6 +58,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             cognome: [data.cognome, [Validators.required, Validators.maxLength(80)]],
             codiceFiscale: [{value: data.codiceFiscale, disabled: true},
               [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
+            vecchiaPassword: ['', [Validators.required]],
             password: ['', [Validators.required]],
             dataNascita: [data.dataNascita, Validators.required],
             superuser: [data.superuser],
@@ -80,6 +81,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
         nome: ['', [Validators.required, Validators.maxLength(80)]],
         cognome: ['', [Validators.required, Validators.maxLength(80)]],
         codiceFiscale: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
+        vecchiaPassword: [{value: null, disabled: true}],
         password: ['', [Validators.required, Validators.maxLength(42)]],
         dataNascita: ['', Validators.required],
         superuser: [false],
@@ -98,7 +100,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
     // controllo se la data di nascita non è futura rispetto alla data odierna
     const dataNascitaDate = new Date(this.f.dataNascita.value);
     if (dataNascitaDate > new Date()) {
-      this.error = 'ERRORE: La data di nascita non può essere futura';
+      this.error = 'ERRORE: La data di nascita non può essere futura.';
       return;
     }
 
@@ -122,6 +124,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             dataNascita: this.f.dataNascita.value,
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
+            vecchiaPassword: this.f.vecchiaPassword.value,
             password: this.f.password.value,
             immagine: this.utenteGiaEsistente.immagine,
             id: this.utenteGiaEsistente.id

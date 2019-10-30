@@ -216,8 +216,6 @@ export class CustomTableComponent implements OnInit, OnChanges {
     }
   }
 
-
-
   open(content, url: string, id: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
