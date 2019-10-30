@@ -4,7 +4,7 @@ import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {first} from 'rxjs/operators';
 import {UtentiService} from '../../services/utenti.service';
 import {Utente} from '../../model/utente';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Title} from '@angular/platform-browser';
 
@@ -34,9 +34,13 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
               private utentiService: UtentiService,
               private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              private titleService: Title) {
+              private titleService: Title,
+              private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.titleService.setTitle('Crea o modifica un utente');
+    // force route reload ehenever parameters change
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
   }
 
   ngOnInit() {
