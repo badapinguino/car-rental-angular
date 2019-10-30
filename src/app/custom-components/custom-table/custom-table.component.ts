@@ -231,17 +231,4 @@ export class CustomTableComponent implements OnInit, OnChanges {
     });
   }
 
-  // open(content, url: string, id: any) {
-  //   this.urlEliminazioneAttuale = url;
-  //   this.idEliminazioneAttuale = id;
-  //   this.modalService.open(content);
-  // }
-  //
-  // bottoneEliminaModaleClicked() {
-  //   this.restApiService.doDelete(this.idEliminazioneAttuale, this.urlEliminazioneAttuale).subscribe(data => {
-  //     this.buttonClickedData.emit(data);
-  //     this.urlEliminazioneAttuale = null;
-  //     this.idEliminazioneAttuale = null;
-  //   });
-  // }
 }
