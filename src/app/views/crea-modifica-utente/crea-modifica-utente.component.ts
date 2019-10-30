@@ -38,7 +38,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
               private router: Router) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.titleService.setTitle('Crea o modifica un utente');
-    // force route reload ehenever parameters change
+    // force route reload whenever parameters change
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
   }
