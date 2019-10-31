@@ -58,7 +58,7 @@
     <div *ngIf="codiceFiscaleValidationTrue" class="invalid-feedback d-block text-warning" >{{codiceFiscaleValidation}}</div> <!-- NON ME LO STAMPA -->
 
     <br><label for="vecchiaPassword">Inserire la password precedente</label>
-    <input id="vecchiaPassword" type="vecchiaPassword" formControlName="vecchiaPassword" class="form-control" autocomplete="new-password"
+    <input id="vecchiaPassword" type="password" formControlName="vecchiaPassword" class="form-control" autocomplete="new-password"
            [ngClass]="{ 'is-invalid': submitted && f.vecchiaPassword.errors }"/>
     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
       <div *ngIf="f.vecchiaPassword.errors.required">Inserire la password precedente per continuare</div>
