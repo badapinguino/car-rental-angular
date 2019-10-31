@@ -172,10 +172,8 @@ export class CustomTableComponent implements OnInit, OnChanges {
     this.listaElementiFiltrata = _.filter(this.listaElementi,
       obj =>  re.test(obj[this.radioSelected])
     );
-    console.log(this.listaElementiFiltrata);
 
     this.listaElementiSliced = this.listaElementiOrdinatiOnPageFilter(1);
-    console.log(this.listaElementiSliced);
   }
 
   onClickButtonRequest(url: string, restApi: RestApi, elemento?: any, id?: any): any | any[] {
@@ -209,7 +207,6 @@ export class CustomTableComponent implements OnInit, OnChanges {
       }
       if (risultato != null) {
         risultato.subscribe(data => {
-          console.log(data);
           this.buttonClickedData.emit(data);
         });
       }

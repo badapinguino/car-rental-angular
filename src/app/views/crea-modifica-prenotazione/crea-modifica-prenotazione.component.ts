@@ -92,7 +92,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
     this.warningMessage = '';
 
     const prenotazione = this.model;
-    console.log(prenotazione);
     this.prenotazioniService.salvaPrenotazione(prenotazione)
       .pipe(first())
       .subscribe(
@@ -102,7 +101,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
         error => {
           // this.error = 'Errore: La prenotazione non è stata inserita.';
           this.error = 'Errore: La prenotazione non è stata inserita!\n' + error;
-          console.log(this.error);
         });
   }
 

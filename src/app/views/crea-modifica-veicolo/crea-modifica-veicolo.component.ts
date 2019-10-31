@@ -105,7 +105,6 @@ export class CreaModificaVeicoloComponent implements OnInit {
             error => {
               // this.error = 'Errore: Il veicolo non è stato inserito.';
               this.error = 'ERRORE: ' + error;
-              console.log(this.error);
             });
 
       });

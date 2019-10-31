@@ -40,7 +40,6 @@ export class VeicoliService {
   }
 
   salvaVeicolo(veicolo: Veicolo): Observable<Veicolo> {
-    console.log(veicolo);
     return this.http.post<Utente>('http://localhost:8080/api/veicoli', JSON.stringify(veicolo), this.httpOptions)
       .pipe(
         retry(1),

@@ -40,7 +40,6 @@ export class PrenotazioniService {
   }
 
   salvaPrenotazione(prenotazione: Prenotazione): Observable<Prenotazione> {
-    console.log(prenotazione);
     return this.http.post<Prenotazione>('http://localhost:8080/api/prenotazioni', JSON.stringify(prenotazione), this.httpOptions)
       .pipe(
         retry(1),

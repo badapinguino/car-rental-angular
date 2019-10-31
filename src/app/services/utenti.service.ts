@@ -42,7 +42,6 @@ export class UtentiService {
   }
 
   salvaUtente(utente: Utente): Observable<Utente> {
-    console.log(utente);
     return this.http.post<Utente>('http://localhost:8080/api/utenti', JSON.stringify(utente), this.httpOptions)
       .pipe(
         retry(1),

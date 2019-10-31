@@ -29,6 +29,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   private currentUser: Utente;
   private codiceFiscaleValidationTrue: boolean;
   private immagineSelezionata: any;
+  private immagineInserita: boolean;
+  private timestamp: number;
 
   constructor(private formBuilder: FormBuilder,
               private utentiService: UtentiService,
@@ -44,11 +46,12 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   }
 
   ngOnInit() {
+    this.codiceFiscaleUtenteDaModificare = this.route.snapshot.queryParamMap.get('codiceFiscale');
+
     this.onInitOnChanges();
   }
 
   onInitOnChanges() {
-    this.codiceFiscaleUtenteDaModificare = this.route.snapshot.queryParamMap.get('codiceFiscale');
 
     if (this.codiceFiscaleUtenteDaModificare) {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtenteDaModificare)
@@ -64,6 +67,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             superuser: [data.superuser],
             immagine: [data.immagine]
           });
+          this.immagineInserita = true;
         });
       this.creaUtenteButtonProperties = {
         testo: 'Modifica utente',
@@ -87,6 +91,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
         superuser: [false],
         immagine: [null]
       });
+      this.immagineInserita = false;
     }
   }
 
@@ -129,6 +134,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             immagine: this.utenteGiaEsistente.immagine,
             id: this.utenteGiaEsistente.id
           };
+          this.immagineInserita = true;
         } else {
           utente = {
             nome: this.f.nome.value,
@@ -138,6 +144,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             superuser: this.f.superuser.value,
             password: this.f.password.value
           };
+          this.immagineInserita = false;
         }
 
         this.utentiService.salvaUtente(utente)
@@ -150,7 +157,11 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
 
                 this.utentiService.uploadImmagine(this.immagineSelezionata, utente.codiceFiscale + '').subscribe(
                   res => {
+                    this.immagineInserita = false;
                     this.successMessage += '\nImmagine inserita correttamente.';
+                    this.codiceFiscaleUtenteDaModificare = utente.codiceFiscale;
+                    this.timestamp = (new Date()).getTime();
+                    this.immagineInserita = true;
                     if (window.location.href.indexOf('#') <= -1) {
                       window.location.href += '#';
                     }
@@ -158,17 +169,19 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
                   err => {
                     this.warningMessage =
                       'Errore durante il caricamento dell\'immagine. Probabilmente la dimensione del file è troppo grande.';
-                    console.log(err);
+                    this.immagineInserita = false;
                     if (window.location.href.indexOf('#') <= -1) {
                       window.location.href += '#';
                     }
                   }
                 );
               }
+              if (window.location.href.indexOf('#') <= -1) {
+                window.location.href += '#';
+              }
             },
             error => {
               this.error = 'ERRORE: ' + error;
-              console.log(this.error);
               if (window.location.href.indexOf('#') <= -1) {
                 window.location.href += '#';
               }
@@ -188,13 +201,15 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
         } else {
           this.codiceFiscaleValidation = '';
         }
-        console.log(this.codiceFiscaleValidation);
         this.codiceFiscaleValidationTrue = true;
       });
   }
 
   handleImages(Event) {
     this.immagineSelezionata = Event.target.files[0];
-    console.log(this.immagineSelezionata);
+  }
+
+  public getTimestamp() {
+    return this.timestamp;
   }
 }
