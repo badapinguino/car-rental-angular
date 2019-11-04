@@ -61,4 +61,12 @@ export class UtentiService {
         catchError(this.handleError)
       );
   }
+
+  confermaIscrizioneUtente(utenteId: string | number) {
+    return this.http.get('http://localhost:8080/completaIscrizione/' + utenteId)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      );
+  }
 }

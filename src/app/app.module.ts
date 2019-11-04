@@ -25,6 +25,7 @@ import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SecurePipe } from './_pipe/secure.pipe';
 import { ModaleConfermaComponent } from './custom-modal/modale-conferma/modale-conferma.component';
 import { ModaleEliminazioneComponent } from './custom-modal/modale-eliminazione/modale-eliminazione.component';
+import { ConfermaIscrizioneComponent } from './views/conferma-iscrizione/conferma-iscrizione.component';
 // import { CustomModalDeleteComponent } from './custom-components/custom-modal-delete/custom-modal-delete.component';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ModaleEliminazioneComponent } from './custom-modal/modale-eliminazione/
     CreaModificaPrenotazioneComponent,
     SecurePipe,
     ModaleConfermaComponent,
-    ModaleEliminazioneComponent
+    ModaleEliminazioneComponent,
+    ConfermaIscrizioneComponent
     // ,
     // CustomModalDeleteComponent
   ],

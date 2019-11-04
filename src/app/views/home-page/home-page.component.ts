@@ -7,7 +7,6 @@ import {UtentiService} from '../../services/utenti.service';
 import {HeaderCustomTable} from '../../_template/header-custom-table';
 import {RestApi} from '../../services/rest-api.enum';
 import {map} from 'rxjs/operators';
-import {CustomTableComponent} from '../../custom-components/custom-table/custom-table.component';
 import {Title} from '@angular/platform-browser';
 
 @Component({
@@ -46,7 +45,15 @@ export class HomePageComponent implements OnInit {
     },
     {
       key: 'superuser',
-      label: 'Amministratore'
+      label: 'Admin'
+    },
+    {
+      key: 'email',
+      label: 'Email'
+    },
+    {
+      key: 'verificato',
+      label: 'Verificato'
     }
   ];
 
@@ -78,8 +85,8 @@ export class HomePageComponent implements OnInit {
       restApi: RestApi.Delete
     },
     {
-      testo: 'Prenotazioni',
-      buttonTypeBootstrap: 'btn-outline-primary',
+      nameMaterialIcon: 'info',
+      buttonTypeBootstrap: 'btn-primary',
       url: '/prenotazioniUtente'
     }
   ];
@@ -102,6 +109,7 @@ export class HomePageComponent implements OnInit {
     this.utentiService.selezionaTuttiUtenti().pipe(
       map((r: any[]) => r.map(user => {
         user.superuser = user.superuser ? 'Sì' : 'No';
+        user.verificato = user.verificato ? 'Sì' : 'No';
         return user;
       }))
     ).subscribe(utenti => {

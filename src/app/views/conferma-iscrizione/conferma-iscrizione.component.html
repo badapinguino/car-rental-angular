@@ -1,0 +1,7 @@
+<div class="container">
+  <br>
+  <h4 class="text-primary">Conferma iscrizione Car Rental</h4>
+  <p *ngIf="testoConferma" class="text-success">{{testoConferma}}</p>
+  <app-custom-button *ngIf="testoConferma" [buttonProperties]="loginButtonProperties"></app-custom-button>
+  <p *ngIf="testoErrore" class="text-danger">{{testoErrore}}</p>
+</div>

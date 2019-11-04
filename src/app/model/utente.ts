@@ -8,4 +8,6 @@ export interface Utente {
   vecchiaPassword?: string;
   password?: string;
   immagine?: string;
+  verificato?: boolean;
+  email?: string;
 }

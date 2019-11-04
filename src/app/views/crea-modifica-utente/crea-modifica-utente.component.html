@@ -72,6 +72,15 @@
     </div>
     <br>
 
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">L'email è obbligatoria</div>
+      <div *ngIf="f.email.errors.email">Il formato non è un email valida</div>
+    </div>
+    <br>
+
     <input type="file" class="form-control-file" (change)='handleImages($event)' >
     <br>
     <div class="form-group">

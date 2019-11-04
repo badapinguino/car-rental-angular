@@ -65,9 +65,13 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             password: ['', [Validators.required]],
             dataNascita: [data.dataNascita, Validators.required],
             superuser: [data.superuser],
-            immagine: [data.immagine]
+            email: [data.email, [Validators.required, Validators.email]],
+            immagine: [data.immagine],
+            verificato: [false]
           });
-          this.immagineInserita = true;
+          if (data.immagine !== null && data.immagine !== '') {
+            this.immagineInserita = true;
+          }
         });
       this.creaUtenteButtonProperties = {
         testo: 'Modifica utente',
@@ -89,7 +93,9 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
         password: ['', [Validators.required, Validators.maxLength(42)]],
         dataNascita: ['', Validators.required],
         superuser: [false],
-        immagine: [null]
+        email: ['', [Validators.required, Validators.email]],
+        immagine: [null],
+        verificato: [false]
       });
       this.immagineInserita = false;
     }
@@ -132,9 +138,13 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             vecchiaPassword: this.f.vecchiaPassword.value,
             password: this.f.password.value,
             immagine: this.utenteGiaEsistente.immagine,
-            id: this.utenteGiaEsistente.id
+            id: this.utenteGiaEsistente.id,
+            email: this.f.email.value,
+            verificato: this.utenteGiaEsistente.verificato
           };
-          this.immagineInserita = true;
+          if (this.utenteGiaEsistente.immagine !== null && this.utenteGiaEsistente.immagine !== '') {
+            this.immagineInserita = true;
+          }
         } else {
           utente = {
             nome: this.f.nome.value,
@@ -142,7 +152,9 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             dataNascita: this.f.dataNascita.value,
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
-            password: this.f.password.value
+            password: this.f.password.value,
+            email: this.f.email.value,
+            verificato: this.f.verificato.value
           };
           this.immagineInserita = false;
         }
