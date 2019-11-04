@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {Title} from '@angular/platform-browser';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModaleConfermaComponent} from '../../custom-modal/modale-conferma/modale-conferma.component';
 
 
 
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private titleService: Title
+    private titleService: Title,
+    private modalService: NgbModal
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -42,6 +45,12 @@ export class LoginComponent implements OnInit {
     buttonTypeBootstrap: 'btn-success',
     disabled: this.loading
   };
+
+  // registerButtonProperties: CustomButtonProperties = {
+  //   testo: 'Registrati',
+  //   buttonTypeBootstrap: 'btn btn-secondary',
+  //   url: '/registrati'
+  // };
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -90,5 +99,9 @@ export class LoginComponent implements OnInit {
           this.error = 'Codice fiscale o password sbagliati.';
           this.loading = false;
         });
+  }
+
+  openModalRegister() {
+    this.modalService.open(ModaleConfermaComponent);
   }
 }

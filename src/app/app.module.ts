@@ -26,6 +26,7 @@ import { SecurePipe } from './_pipe/secure.pipe';
 import { ModaleConfermaComponent } from './custom-modal/modale-conferma/modale-conferma.component';
 import { ModaleEliminazioneComponent } from './custom-modal/modale-eliminazione/modale-eliminazione.component';
 import { ConfermaIscrizioneComponent } from './views/conferma-iscrizione/conferma-iscrizione.component';
+import { ModaleFormRegistrazioneComponent } from './custom-modal/modale-form-registrazione/modale-form-registrazione.component';
 // import { CustomModalDeleteComponent } from './custom-components/custom-modal-delete/custom-modal-delete.component';
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ConfermaIscrizioneComponent } from './views/conferma-iscrizione/conferm
     SecurePipe,
     ModaleConfermaComponent,
     ModaleEliminazioneComponent,
-    ConfermaIscrizioneComponent
+    ConfermaIscrizioneComponent,
+    ModaleFormRegistrazioneComponent
     // ,
     // CustomModalDeleteComponent
   ],
