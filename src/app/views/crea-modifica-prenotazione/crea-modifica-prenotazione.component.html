@@ -1,58 +1,62 @@
-<span *ngIf="currentUser.superuser===false">
+<span *ngIf="currentUser.verificato">
+  <span *ngIf="currentUser.superuser===false">
+    <div class="container">
+      <br>
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+      <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+      <br>
+      <h4 class="text-center text-primary">{{titoloPagina}}</h4>
+        <!-- TODO: Inserire form template driven -->
+      <form *ngIf="model" (ngSubmit)="prenotazioneForm.form.valid && onSubmit()" #prenotazioneForm="ngForm">
 
-  <div class="container">
-    <br>
-    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-    <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
-    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
-    <br>
-    <h4 class="text-center text-primary">{{titoloPagina}}</h4>
-      <!-- TODO: Inserire form template driven -->
-    <form *ngIf="model" (ngSubmit)="prenotazioneForm.form.valid && onSubmit()" #prenotazioneForm="ngForm">
-
-      <div class="form-group">
-        <label for="veicolo">Scegli il veicolo</label>
-        <select class="form-control" id="veicolo"
-                required
-                [(ngModel)]="model.veicolo" name="veicolo"
-                [compareWith]="veicoloSelezionato"
-                #veicolo="ngModel">
-          <option *ngFor="let mezzo of listaVeicoli" [ngValue]="mezzo">
-            {{mezzo.codiceMezzo}}. {{mezzo.casaCostruttrice}} {{mezzo.modello}}.
-            Tipologia: {{mezzo.tipologia}}. Prezzo: {{mezzo.prezzoGiornata}}€ al giorno.
-          </option>
-        </select>
-        <div [hidden]="veicolo.valid" class="alert alert-danger">
-          Il veicolo non può essere vuoto.
+        <div class="form-group">
+          <label for="veicolo">Scegli il veicolo</label>
+          <select class="form-control" id="veicolo"
+                  required
+                  [(ngModel)]="model.veicolo" name="veicolo"
+                  [compareWith]="veicoloSelezionato"
+                  #veicolo="ngModel">
+            <option *ngFor="let mezzo of listaVeicoli" [ngValue]="mezzo">
+              {{mezzo.codiceMezzo}}. {{mezzo.casaCostruttrice}} {{mezzo.modello}}.
+              Tipologia: {{mezzo.tipologia}}. Prezzo: {{mezzo.prezzoGiornata}}€ al giorno.
+            </option>
+          </select>
+          <div [hidden]="veicolo.valid" class="alert alert-danger">
+            Il veicolo non può essere vuoto.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="dataInizio">Data Inizio</label>
-        <input type="date" class="form-control" id="dataInizio"
-               required
-               [(ngModel)]="model.dataInizio" name="dataInizio"
-               #dataInizio="ngModel">
-        <div [hidden]="dataInizio.valid" class="alert alert-danger">
-          La data di inizio non può essere vuota.
+        <div class="form-group">
+          <label for="dataInizio">Data Inizio</label>
+          <input type="date" class="form-control" id="dataInizio"
+                 required
+                 [(ngModel)]="model.dataInizio" name="dataInizio"
+                 #dataInizio="ngModel">
+          <div [hidden]="dataInizio.valid" class="alert alert-danger">
+            La data di inizio non può essere vuota.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="dataFine">Data Fine</label>
-        <input type="date" class="form-control" id="dataFine"
-               required
-               [(ngModel)]="model.dataFine" name="dataFine"
-               #dataFine="ngModel">
-        <div [hidden]="dataFine.valid" class="alert alert-danger">
-          La data di fine non può essere vuota.
+        <div class="form-group">
+          <label for="dataFine">Data Fine</label>
+          <input type="date" class="form-control" id="dataFine"
+                 required
+                 [(ngModel)]="model.dataFine" name="dataFine"
+                 #dataFine="ngModel">
+          <div [hidden]="dataFine.valid" class="alert alert-danger">
+            La data di fine non può essere vuota.
+          </div>
         </div>
-      </div>
 
-      <input type="hidden" name="utente" [(ngModel)]="model.utente" #utente="ngModel">
+        <input type="hidden" name="utente" [(ngModel)]="model.utente" #utente="ngModel">
 
-      <app-custom-button [buttonProperties]="creaPrenotazioneButtonProperties"></app-custom-button>
-    </form>
-  </div>
-
+        <app-custom-button [buttonProperties]="creaPrenotazioneButtonProperties"></app-custom-button>
+      </form>
+    </div>
+  </span>
 </span>
+<div class="container" *ngIf="!currentUser.verificato">
+  <br>
+  <p class="text-danger">Verifica l'account prima di utilizzare il servizio, controlla la tua email.</p>
+</div>

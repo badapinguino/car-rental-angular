@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           if (data != null && data.jwt != null) {
             this.authenticationService.impostaUtenteLocalStorage(this.f.codiceFiscale.value).subscribe(
               utente => {
-                         this.router.navigate([this.returnUrl]);
+                this.router.navigate([this.returnUrl]);
               }
             );
           } else if (data != null && data.error) {

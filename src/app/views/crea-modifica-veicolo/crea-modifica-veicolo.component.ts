@@ -5,6 +5,8 @@ import {VeicoliService} from '../../services/veicoli.service';
 import {CustomButtonProperties} from '../../_template/custom-button-properties';
 import {first} from 'rxjs/operators';
 import {Title} from '@angular/platform-browser';
+import {AuthenticationService} from '../../services/authentication.service';
+import {Utente} from '../../model/utente';
 
 @Component({
   selector: 'app-crea-modifica-veicolo',
@@ -35,8 +37,11 @@ export class CreaModificaVeicoloComponent implements OnInit {
     'Utilitaria'
   ];
   private codiceMezzoVeicoloDaModificare: string;
+  private currentUser: Utente;
 
-  constructor(private route: ActivatedRoute, private veicoliService: VeicoliService, private titleService: Title) {
+  constructor(private route: ActivatedRoute, private veicoliService: VeicoliService, private titleService: Title,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.titleService.setTitle('Crea o modifica un veicolo');
   }
 

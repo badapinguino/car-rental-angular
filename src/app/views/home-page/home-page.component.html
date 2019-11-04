@@ -1,21 +1,27 @@
+
 <div class="container-fluid">
   <br>
-  <h3 class="text-primary">Benvenuto {{currentUser.nome}} {{currentUser.cognome}}</h3>
-  <br><br>
-  <span *ngIf="currentUser.superuser===true">
+  <span *ngIf="currentUser.verificato">
+    <h3 class="text-primary">Benvenuto {{currentUser.nome}} {{currentUser.cognome}}</h3>
+    <br><br>
+    <span *ngIf="currentUser.superuser===true">
 
-    <app-custom-button [buttonProperties]="creaUtentePulsanteProprieta"></app-custom-button><br><br>
-    <app-custom-table *ngIf="listaUtenti"
-                      [listaElementi]="listaUtenti"
-                      [listaHeader]="listaHeaderUtenti"
-                      [listaBottoni]="listaPulsanti"
-                      [listaHeaderBottoni]="listaHeaderPulsanti"
-                      campoIdElemento="codiceFiscale"
-                      (buttonClickedData)="onRichiestaRest($event)">
-    </app-custom-table>
+      <app-custom-button [buttonProperties]="creaUtentePulsanteProprieta"></app-custom-button><br><br>
+      <app-custom-table *ngIf="listaUtenti"
+                        [listaElementi]="listaUtenti"
+                        [listaHeader]="listaHeaderUtenti"
+                        [listaBottoni]="listaPulsanti"
+                        [listaHeaderBottoni]="listaHeaderPulsanti"
+                        campoIdElemento="codiceFiscale"
+                        (buttonClickedData)="onRichiestaRest($event)">
+      </app-custom-table>
 
-  </span>
-  <span *ngIf="currentUser.superuser===false">
-    <app-prenotazioni-utente [codiceFiscaleInput]="currentUser.codiceFiscale"></app-prenotazioni-utente>
+    </span>
+    <span *ngIf="currentUser.superuser===false">
+      <app-prenotazioni-utente [codiceFiscaleInput]="currentUser.codiceFiscale"></app-prenotazioni-utente>
+    </span>
   </span>
 </div>
+<span *ngIf="!currentUser.verificato">
+  <p class="text-danger">Verifica l'account prima di utilizzare il servizio, controlla la tua email.</p>
+</span>
