@@ -52,33 +52,36 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   }
 
   onInitOnChanges() {
-
     if (this.codiceFiscaleUtenteDaModificare) {
-      this.utentiService.selezionaUtente(this.codiceFiscaleUtenteDaModificare)
-        .subscribe(data => {
-          this.utenteForm = this.formBuilder.group({
-            nome: [data.nome, [Validators.required, Validators.maxLength(80)]],
-            cognome: [data.cognome, [Validators.required, Validators.maxLength(80)]],
-            codiceFiscale: [{value: data.codiceFiscale, disabled: true},
-              [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
-            vecchiaPassword: ['', [Validators.required]],
-            password: ['', [Validators.required]],
-            dataNascita: [data.dataNascita, Validators.required],
-            superuser: [data.superuser],
-            email: [data.email, [Validators.required, Validators.email]],
-            immagine: [data.immagine],
-            verificato: [false]
-          });
-          if (data.immagine !== null && data.immagine !== '') {
-            this.immagineInserita = true;
-          }
-        });
-      this.creaUtenteButtonProperties = {
-        testo: 'Modifica utente',
-        buttonTypeBootstrap: 'btn-primary'
-      };
-      if (this.codiceFiscaleUtenteDaModificare === this.currentUser.codiceFiscale) {
-        this.titoloPagina = 'Profilo utente';
+      if (this.codiceFiscaleUtenteDaModificare === this.currentUser.codiceFiscale || this.currentUser.superuser) {
+        this.utentiService.selezionaUtente(this.codiceFiscaleUtenteDaModificare)
+            .subscribe(data => {
+              this.utenteForm = this.formBuilder.group({
+                nome: [data.nome, [Validators.required, Validators.maxLength(80)]],
+                cognome: [data.cognome, [Validators.required, Validators.maxLength(80)]],
+                codiceFiscale: [{value: data.codiceFiscale, disabled: true},
+                  [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
+                vecchiaPassword: ['', [Validators.required]],
+                password: ['', [Validators.required]],
+                dataNascita: [data.dataNascita, Validators.required],
+                superuser: [data.superuser],
+                email: [data.email, [Validators.required, Validators.email]],
+                immagine: [data.immagine],
+                verificato: [false]
+              });
+              if (data.immagine !== null && data.immagine !== '') {
+                this.immagineInserita = true;
+              }
+            });
+        this.creaUtenteButtonProperties = {
+          testo: 'Modifica utente',
+          buttonTypeBootstrap: 'btn-primary'
+        };
+        if (this.codiceFiscaleUtenteDaModificare === this.currentUser.codiceFiscale) {
+          this.titoloPagina = 'Profilo utente';
+        }
+      } else {
+        this.error = 'ERRORE: Puoi modificare solo il tuo utente';
       }
     } else {
       this.creaUtenteButtonProperties = {
@@ -206,8 +209,6 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
     this.utentiService.selezionaUtente(codiceFiscaleValue)
       .subscribe( data => {
         if (data != null) {
-          // TODO controllare perché non mi fa vedere il messaggio
-          // probabilmente perché la richiesta la fa dopo aver aggiornato l'elemento nella UI
           this.codiceFiscaleValidation =
             'Il codice fiscale inserito è già esistente. Non verrà inserito un nuovo utente ma verrà modificato quello già presente';
         } else {

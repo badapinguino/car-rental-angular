@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Utente} from '../model/utente';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -54,9 +55,12 @@ export class AuthenticationService {
 
   login(codiceFiscale, password): Observable<any> {
 
+    // const salt = bcrypt.genSaltSync(10);
+    // const pass = bcrypt.hashSync(password, salt);
+
     const body: any = {
       username: codiceFiscale,
-      password
+      password: password
     };
 
     return this.http.post<any>(

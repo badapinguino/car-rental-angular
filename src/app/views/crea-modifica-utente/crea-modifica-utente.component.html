@@ -1,10 +1,10 @@
 <span *ngIf="currentUser.verificato">
+  <br>
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
   <span *ngIf="currentUser.superuser===true ||
           (codiceFiscaleUtenteDaModificare && codiceFiscaleUtenteDaModificare===currentUser.codiceFiscale)">
-    <br>
-    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-    <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
-    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
     <br>
     <h4 class="text-center text-primary">{{titoloPagina}}</h4>
 
