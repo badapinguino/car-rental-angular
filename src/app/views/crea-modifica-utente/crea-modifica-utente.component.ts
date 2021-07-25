@@ -7,6 +7,7 @@ import {Utente} from '../../model/utente';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Title} from '@angular/platform-browser';
+import * as sha512 from 'js-sha512';
 
 @Component({
   selector: 'app-crea-modifica-utente',
@@ -138,8 +139,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             dataNascita: this.f.dataNascita.value,
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
-            vecchiaPassword: this.f.vecchiaPassword.value,
-            password: this.f.password.value,
+            vecchiaPassword: sha512.sha512(this.f.vecchiaPassword.value),
+            password: sha512.sha512(this.f.password.value),
             immagine: this.utenteGiaEsistente.immagine,
             id: this.utenteGiaEsistente.id,
             email: this.f.email.value,
@@ -155,7 +156,7 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
             dataNascita: this.f.dataNascita.value,
             codiceFiscale: this.f.codiceFiscale.value,
             superuser: this.f.superuser.value,
-            password: this.f.password.value,
+            password: sha512.sha512(this.f.password.value),
             email: this.f.email.value,
             verificato: this.f.verificato.value
           };

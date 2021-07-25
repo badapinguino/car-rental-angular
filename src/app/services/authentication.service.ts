@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Utente} from '../model/utente';
 import * as bcrypt from 'bcryptjs';
+import * as sha512 from 'js-sha512';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -54,13 +55,15 @@ export class AuthenticationService {
   }
 
   login(codiceFiscale, password): Observable<any> {
+    // inserito calcolo dell'hash così la password non viene inviata in chiaro
 
     // const salt = bcrypt.genSaltSync(10);
     // const pass = bcrypt.hashSync(password, salt);
+    const pwdhash = sha512.sha512(password);
 
     const body: any = {
       username: codiceFiscale,
-      password: password
+      password: pwdhash
     };
 
     return this.http.post<any>(

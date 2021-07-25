@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      codiceFiscale: ['BDGDNL97C12F704S', Validators.required], // DA CAMBIARE CON ''
+      codiceFiscale: ['', Validators.required],
       password: ['', Validators.required]
     });
 
