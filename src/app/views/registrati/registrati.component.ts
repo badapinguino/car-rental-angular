@@ -20,18 +20,15 @@ export class RegistratiComponent implements OnInit {
   creaUtenteButtonProperties: CustomButtonProperties;
   loginButtonProperties: CustomButtonProperties;
   error: string;
-  // private utenteGiaEsistente: Utente;
   private successMessage: string;
   private codiceFiscaleValidation: string;
   private warningMessage: string;
 
   private titoloPagina = 'Registrati al servizio';
 
-  // private codiceFiscaleUtenteDaModificare: string;
   private currentUser: Utente;
   private codiceFiscaleValidationTrue: boolean;
   private immagineSelezionata: any;
-  private immagineInserita: boolean;
   private timestamp: number;
 
   constructor(private formBuilder: FormBuilder,
@@ -58,7 +55,6 @@ export class RegistratiComponent implements OnInit {
       nome: ['', [Validators.required, Validators.maxLength(80)]],
       cognome: ['', [Validators.required, Validators.maxLength(80)]],
       codiceFiscale: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(16)]],
-      // vecchiaPassword: [{value: null, disabled: true}],
       password: ['', [Validators.required, Validators.maxLength(42)]],
       dataNascita: ['', Validators.required],
       superuser: [false],
@@ -118,29 +114,6 @@ export class RegistratiComponent implements OnInit {
             dati => {
               this.successMessage = 'Utente inserito correttamente.';
 
-              /*if (this.immagineSelezionata != null) {
-
-                this.utentiService.uploadImmagine(this.immagineSelezionata, utente.codiceFiscale + '').subscribe(
-                    res => {
-                      this.immagineInserita = false;
-                      this.successMessage += '\nImmagine inserita correttamente.';
-                      this.codiceFiscaleUtenteDaModificare = utente.codiceFiscale;
-                      this.timestamp = (new Date()).getTime();
-                      this.immagineInserita = true;
-                      if (window.location.href.indexOf('#') <= -1) {
-                        window.location.href += '#';
-                      }
-                    },
-                    err => {
-                      this.warningMessage =
-                          'Errore durante il caricamento dell\'immagine. Probabilmente la dimensione del file è troppo grande.';
-                      this.immagineInserita = false;
-                      if (window.location.href.indexOf('#') <= -1) {
-                        window.location.href += '#';
-                      }
-                    }
-                );
-              }*/
               if (window.location.href.indexOf('#') <= -1) {
                 window.location.href += '#';
               }
@@ -152,81 +125,6 @@ export class RegistratiComponent implements OnInit {
               }
             });
 
-    /* this.utentiService.selezionaUtente(this.f.codiceFiscale.value + '')
-        .subscribe( data => {
-          this.utenteGiaEsistente = data;
-          let utente: Utente;
-          if (this.utenteGiaEsistente != null) {
-            utente = {
-              nome: this.f.nome.value,
-              cognome: this.f.cognome.value,
-              dataNascita: this.f.dataNascita.value,
-              codiceFiscale: this.f.codiceFiscale.value,
-              superuser: this.f.superuser.value,
-              vecchiaPassword: sha512.sha512(this.f.vecchiaPassword.value),
-              password: sha512.sha512(this.f.password.value),
-              immagine: this.utenteGiaEsistente.immagine,
-              id: this.utenteGiaEsistente.id,
-              email: this.f.email.value,
-              verificato: this.utenteGiaEsistente.verificato
-            };
-            if (this.utenteGiaEsistente.immagine !== null && this.utenteGiaEsistente.immagine !== '') {
-              this.immagineInserita = true;
-            }
-          } else {
-            utente = {
-              nome: this.f.nome.value,
-              cognome: this.f.cognome.value,
-              dataNascita: this.f.dataNascita.value,
-              codiceFiscale: this.f.codiceFiscale.value,
-              superuser: this.f.superuser.value,
-              password: sha512.sha512(this.f.password.value),
-              email: this.f.email.value,
-              verificato: this.f.verificato.value
-            };
-            this.immagineInserita = false;
-          }
-
-          this.utentiService.salvaUtente(utente)
-              .pipe(first())
-              .subscribe(
-                  dati => {
-                    this.successMessage = 'Utente inserito correttamente.';
-
-                    if (this.immagineSelezionata != null) {
-
-                      this.utentiService.uploadImmagine(this.immagineSelezionata, utente.codiceFiscale + '').subscribe(
-                          res => {
-                            this.immagineInserita = false;
-                            this.successMessage += '\nImmagine inserita correttamente.';
-                            this.codiceFiscaleUtenteDaModificare = utente.codiceFiscale;
-                            this.timestamp = (new Date()).getTime();
-                            this.immagineInserita = true;
-                            if (window.location.href.indexOf('#') <= -1) {
-                              window.location.href += '#';
-                            }
-                          },
-                          err => {
-                            this.warningMessage =
-                                'Errore durante il caricamento dell\'immagine. Probabilmente la dimensione del file è troppo grande.';
-                            this.immagineInserita = false;
-                            if (window.location.href.indexOf('#') <= -1) {
-                              window.location.href += '#';
-                            }
-                          }
-                      );
-                    }
-                    if (window.location.href.indexOf('#') <= -1) {
-                      window.location.href += '#';
-                    }
-                  },
-                  error => {
-                    this.error = 'ERRORE: ' + error;
-                    if (window.location.href.indexOf('#') <= -1) {
-                      window.location.href += '#';
-                    }
-                  });
-        }); */
   }
 
   onTypeCodiceFiscale(codiceFiscaleValue: string) {
