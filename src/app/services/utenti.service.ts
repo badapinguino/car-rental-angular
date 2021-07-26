@@ -69,4 +69,12 @@ export class UtentiService {
         catchError(this.handleError)
       );
   }
+
+  registraUtente(utente: Utente): Observable<Utente> {
+    return this.http.post<Utente>('http://localhost:8080/registrati', JSON.stringify(utente), this.httpOptions)
+        .pipe(
+            retry(1),
+            catchError(this.handleError)
+        );
+  }
 }

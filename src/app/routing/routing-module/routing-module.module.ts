@@ -10,6 +10,7 @@ import {CreaModificaVeicoloComponent} from '../../views/crea-modifica-veicolo/cr
 import {PrenotazioniUtenteComponent} from '../../views/prenotazioni-utente/prenotazioni-utente.component';
 import {CreaModificaPrenotazioneComponent} from '../../views/crea-modifica-prenotazione/crea-modifica-prenotazione.component';
 import {ConfermaIscrizioneComponent} from '../../views/conferma-iscrizione/conferma-iscrizione.component';
+import {RegistratiComponent} from '../../views/registrati/registrati.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'registrati',
+    component: RegistratiComponent
   },
   {
     path: 'completaIscrizione',

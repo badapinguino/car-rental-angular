@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
     disabled: this.loading
   };
 
-  // registerButtonProperties: CustomButtonProperties = {
-  //   testo: 'Registrati',
-  //   buttonTypeBootstrap: 'btn btn-secondary',
-  //   url: '/registrati'
-  // };
+  registerButtonProperties: CustomButtonProperties = {
+    testo: 'Registrati',
+    buttonTypeBootstrap: 'btn btn-secondary',
+    url: '/registrati'
+  };
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
