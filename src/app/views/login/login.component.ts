@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      codiceFiscale: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
 
@@ -71,12 +71,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.codiceFiscale.value, this.f.password.value)
+    this.authenticationService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
           if (data != null && data.jwt != null) {
-            this.authenticationService.impostaUtenteLocalStorage(this.f.codiceFiscale.value).subscribe(
+            this.authenticationService.impostaUtenteLocalStorage(data.username).subscribe(
               utente => {
                 this.router.navigate([this.returnUrl]);
               }
@@ -86,17 +86,17 @@ export class LoginComponent implements OnInit {
             this.loading = false;
             this.authenticationService.logout();
           } else if (data === undefined || data === null) {
-            this.error = 'Codice fiscale o password sbagliate';
+            this.error = 'E-mail o password sbagliate';
             this.loading = false;
             this.authenticationService.logout();
           } else {
-            this.error = 'Codice fiscale o password sbagliate';
+            this.error = 'E-mail o password sbagliate';
             this.loading = false;
             this.authenticationService.logout();
           }
         },
         error => {
-          this.error = 'Codice fiscale o password sbagliati.';
+          this.error = 'E-mail o password sbagliate';
           this.loading = false;
         });
   }

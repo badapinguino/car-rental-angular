@@ -6,11 +6,11 @@
   <br>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="codiceFiscale">Codice Fiscale</label>
-      <input id="codiceFiscale" type="text" formControlName="codiceFiscale" class="form-control"
-             [ngClass]="{ 'is-invalid': submitted && f.codiceFiscale.errors }"/>
-      <div *ngIf="submitted && f.codiceFiscale.errors" class="invalid-feedback">
-        <div *ngIf="f.codiceFiscale.errors.required">Il codice fiscale non può essere vuoto</div>
+      <label for="email">E-mail</label>
+      <input id="email" type="text" formControlName="email" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">L'e-mail non può essere vuota</div>
       </div>
     </div>
     <div class="form-group">
