@@ -23,14 +23,14 @@ export class UtentiService {
   };
 
   selezionaTuttiUtenti(): Observable<any[]> {
-    return this.http.get<Utente[]>('http://localhost:8080/api/utenti')
+    return this.http.get<Utente[]>('https://localhost:8443/api/utenti')
       .pipe(
         catchError(this.handleError)
       );
   }
 
   selezionaUtente(codiceFiscale: string): Observable<Utente> {
-    return this.http.get<Utente>('http://localhost:8080/api/utenti/' + codiceFiscale)
+    return this.http.get<Utente>('https://localhost:8443/api/utenti/' + codiceFiscale)
       .pipe(
         catchError(this.handleError)
       );
@@ -42,7 +42,7 @@ export class UtentiService {
   }
 
   salvaUtente(utente: Utente): Observable<Utente> {
-    return this.http.post<Utente>('http://localhost:8080/api/utenti', JSON.stringify(utente), this.httpOptions)
+    return this.http.post<Utente>('https://localhost:8443/api/utenti', JSON.stringify(utente), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -55,7 +55,7 @@ export class UtentiService {
     const body = new FormData();
     // Add file content to prepare the request
     body.append('file', immagineSelezionata);
-    return this.http.post('http://localhost:8080/api/upload/' + utenteId, body)
+    return this.http.post('https://localhost:8443/api/upload/' + utenteId, body)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -63,7 +63,7 @@ export class UtentiService {
   }
 
   confermaIscrizioneUtente(utenteId: string | number) {
-    return this.http.get('http://localhost:8080/completaIscrizione/' + utenteId)
+    return this.http.get('https://localhost:8443/completaIscrizione/' + utenteId)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -71,7 +71,7 @@ export class UtentiService {
   }
 
   registraUtente(utente: Utente): Observable<Utente> {
-    return this.http.post<Utente>('http://localhost:8080/registrati', JSON.stringify(utente), this.httpOptions)
+    return this.http.post<Utente>('https://localhost:8443/registrati', JSON.stringify(utente), this.httpOptions)
         .pipe(
             retry(1),
             catchError(this.handleError)

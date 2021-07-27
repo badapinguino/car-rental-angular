@@ -43,7 +43,7 @@ export class AuthenticationService {
   }
 
   impostaUtenteLocalStorage(codiceFiscale): Observable<Utente> {
-    return this.http.get<any>(`http://localhost:8080/api/utenti/` + codiceFiscale )
+    return this.http.get<any>(`https://localhost:8443/api/utenti/` + codiceFiscale )
       .pipe(map(user => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -67,7 +67,7 @@ export class AuthenticationService {
     };
 
     return this.http.post<any>(
-      'http://localhost:8080/login',
+      'https://localhost:8443/login',
       body
       // config
     ).pipe(

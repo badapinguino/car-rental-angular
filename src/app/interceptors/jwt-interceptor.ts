@@ -12,7 +12,7 @@ export class JwtInterceptor implements HttpInterceptor {
     const currentUser = this.authenticationService.currentUserValue;
     const currentJwtToken = this.authenticationService.currentJwtTokenValue;
     const isLoggedIn = currentUser && currentJwtToken;
-    const isApiUrl = request.url.startsWith('http://localhost:8080/api/');
+    const isApiUrl = request.url.startsWith('https://localhost:8443/api/');
     // la prima richiesta non può essere loggato, quindi tolgo isLoggedIn
     if (isApiUrl) {
       request = request.clone({
