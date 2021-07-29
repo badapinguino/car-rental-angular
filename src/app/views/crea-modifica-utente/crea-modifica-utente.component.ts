@@ -206,7 +206,6 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
   }
 
   onTypeCodiceFiscale(codiceFiscaleValue: string) {
-    console.log(this.f);
     this.codiceFiscaleValidationTrue = false;
     this.utentiService.selezionaUtente(codiceFiscaleValue)
       .subscribe( data => {
@@ -216,7 +215,11 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
         } else {
           this.codiceFiscaleValidation = '';
         }
-        this.codiceFiscaleValidationTrue = true; // TODO aggiungere gestione errori
+        this.codiceFiscaleValidationTrue = true;
+      },
+      error => {
+        this.codiceFiscaleValidation = '';
+        this.codiceFiscaleValidationTrue = true;
       });
   }
 

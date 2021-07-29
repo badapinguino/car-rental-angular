@@ -16,10 +16,15 @@ export class ErrorInterceptor implements HttpInterceptor {
         window.location.replace('/login');
         // location.reload();
       }
-      console.log('Error: ' + err);
-      console.log('Error: ' + err.error);
-      const error = err.error.message || err.statusText;
-      return throwError(error);
+      if (err.url.startsWith('https://localhost:8443/api/utenti/') && err.status === 500) {
+        const error = 'Codice fiscale non trovato';
+        return throwError(error);
+      } else {
+        console.log('Error: ' + err);
+        console.log('Error: ' + err.error);
+        const error = err.error.message || err.statusText;
+        return throwError(error);
+      }
     }));
   }
 }
