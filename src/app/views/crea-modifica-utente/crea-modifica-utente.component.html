@@ -15,7 +15,7 @@
     <form *ngIf="utenteForm" [formGroup]="utenteForm" (ngSubmit)="onSubmit()">
 
 
-      <img *ngIf="immagineInserita===true" [attr.src]="'http://localhost:8080/api/immagineProfilo/' + f.codiceFiscale.value + '?' + this.getTimestamp() | secure | async" alt="Immagine del profilo" style="width: 20%; margin-left: auto; margin-right: auto; display: block;"
+      <img *ngIf="immagineInserita===true" [attr.src]="'https://localhost:8443/api/immagineProfilo/' + f.codiceFiscale.value + '?' + this.getTimestamp() | secure | async" alt="Immagine del profilo" style="width: 20%; margin-left: auto; margin-right: auto; display: block;"
            class="img-thumbnail" >
 
 
@@ -82,7 +82,17 @@
       </div>
       <br>
 
-      <input type="file" class="form-control-file" (change)='handleImages($event)' >
+      <div class="form-row">
+        <div class="col">
+          <input type="file" class="form-control-file" (change)='handleImages($event)' >
+        </div>
+        <div class="col" >
+          <div class="form-group form-check" *ngIf="currentUser.superuser===true">
+            <input type="checkbox" class="form-check-input" formControlName="superuser" id="superuser">
+            <label class="form-check-label" for="superuser">Nomina amministratore</label>
+          </div>
+        </div>
+      </div>
       <br>
       <div class="form-group">
         <app-custom-button [buttonProperties]="creaUtenteButtonProperties"></app-custom-button>
