@@ -81,7 +81,7 @@ export class HomePageComponent implements OnInit {
     {
       nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
-      urlRestApi: 'http://localhost:8080/api/utenti/',
+      urlRestApi: 'https://localhost:8443/api/utenti/',
       restApi: RestApi.Delete
     },
     {
@@ -106,15 +106,17 @@ export class HomePageComponent implements OnInit {
   }
 
   inizializzaListaUtenti() {
-    this.utentiService.selezionaTuttiUtenti().pipe(
-      map((r: any[]) => r.map(user => {
-        user.superuser = user.superuser ? 'Sì' : 'No';
-        user.verificato = user.verificato ? 'Sì' : 'No';
-        return user;
-      }))
-    ).subscribe(utenti => {
-      this.listaUtenti = utenti;
-    });
+    if (this.currentUser.superuser) {
+      this.utentiService.selezionaTuttiUtenti().pipe(
+          map((r: any[]) => r.map(user => {
+            user.superuser = user.superuser ? 'Sì' : 'No';
+            user.verificato = user.verificato ? 'Sì' : 'No';
+            return user;
+          }))
+      ).subscribe(utenti => {
+        this.listaUtenti = utenti;
+      });
+    }
   }
 
   onRichiestaRest(risultato: any) {

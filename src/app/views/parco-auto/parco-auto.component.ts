@@ -83,7 +83,7 @@ export class ParcoAutoComponent implements OnInit {
       // testo: 'Elimina',
       nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
-      urlRestApi: 'http://localhost:8080/api/veicoli/',
+      urlRestApi: 'https://localhost:8443/api/veicoli/',
       restApi: RestApi.Delete
     }
   ];

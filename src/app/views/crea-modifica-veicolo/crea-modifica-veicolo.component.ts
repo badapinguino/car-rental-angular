@@ -52,6 +52,8 @@ export class CreaModificaVeicoloComponent implements OnInit {
       this.veicoliService.selezionaVeicolo(this.codiceMezzoVeicoloDaModificare)
         .subscribe(data => {
           this.model = data;
+        }, error => {
+          this.error = 'ERRORE: ' + error;
         });
       this.creaVeicoloButtonProperties = {
         testo: 'Modifica veicolo',
@@ -112,6 +114,8 @@ export class CreaModificaVeicoloComponent implements OnInit {
               this.error = 'ERRORE: ' + error;
             });
 
+      }, error => {
+        this.error = 'ERRORE: ' + error;
       });
 
   }

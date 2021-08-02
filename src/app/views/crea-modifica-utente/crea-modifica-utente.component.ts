@@ -73,6 +73,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
               if (data.immagine !== null && data.immagine !== '') {
                 this.immagineInserita = true;
               }
+            }, error => {
+              this.error = error;
             });
         this.creaUtenteButtonProperties = {
           testo: 'Modifica utente',
@@ -202,6 +204,8 @@ export class CreaModificaUtenteComponent implements OnInit/*, OnChanges*/ {
                 window.location.href += '#';
               }
             });
+      }, error => {
+        this.error = 'ERRORE: ' + error;
       });
   }
 

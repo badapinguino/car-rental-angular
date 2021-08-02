@@ -1,11 +1,11 @@
 <span *ngIf="currentUser.verificato">
-  <span *ngIf="currentUser.superuser===false">
-    <div class="container">
-      <br>
-      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-      <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
-      <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
-      <br>
+  <div class="container">
+    <br>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+    <br>
+    <span *ngIf="currentUser.superuser===false">
       <h4 class="text-center text-primary">{{titoloPagina}}</h4>
         <!-- TODO: Inserire form template driven -->
       <form *ngIf="model" (ngSubmit)="prenotazioneForm.form.valid && onSubmit()" #prenotazioneForm="ngForm">
@@ -53,8 +53,8 @@
 
         <app-custom-button [buttonProperties]="creaPrenotazioneButtonProperties"></app-custom-button>
       </form>
-    </div>
-  </span>
+    </span>
+  </div>
 </span>
 <div class="container" *ngIf="!currentUser.verificato">
   <br>

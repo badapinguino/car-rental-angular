@@ -1,10 +1,10 @@
-<span *ngIf="currentUser.superuser && currentUser.verificato">
-  <div class="container">
-    <br>
-    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-    <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
-    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
-    <br>
+<div class="container">
+  <br>
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div *ngIf="warningMessage" class="alert alert-warning">{{warningMessage}}</div>
+  <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+  <br>
+  <span *ngIf="currentUser.superuser && currentUser.verificato">
     <h4 class="text-center text-primary">{{titoloPagina}}</h4>
     <form *ngIf="model" (ngSubmit)="veicoloForm.form.valid && onSubmit()" #veicoloForm="ngForm">
       <div class="form-group">
@@ -89,8 +89,8 @@
       </div>
       <app-custom-button [buttonProperties]="creaVeicoloButtonProperties"></app-custom-button>
     </form>
-  </div>
-</span>
+  </span>
+</div>
 
 <div class="container" *ngIf="!currentUser.verificato">
   <br>

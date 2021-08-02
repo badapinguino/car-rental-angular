@@ -46,8 +46,6 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: controllare poi che la prenotazione trovata dall'id nella modifica abbia
-    //  lo stesso utente.codiceFiscale associato uguale al CF utente sessione
     this.codicePrenotazioneDaModificare = + this.route.snapshot.queryParamMap.get('id');
     this.codiceFiscaleUtentePrenotazione = this.route.snapshot.queryParamMap.get('codiceFiscale');
 
@@ -56,7 +54,9 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
       data => {
         this.listaVeicoli = data;
         // this.model.veicolo = this.listaVeicoli[0];
-      }
+      }, error => {
+          this.error = 'ERRORE: ' + error;
+        }
     );
 
     if (this.codicePrenotazioneDaModificare) {
@@ -64,6 +64,8 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
         .subscribe(prenotazione => {
           this.model = prenotazione;
           this.codiceFiscaleUtentePrenotazione = prenotazione.utente.codiceFiscale;
+        }, error => {
+          this.error = 'ERRORE: ' + error;
         });
       this.creaPrenotazioneButtonProperties = {
         testo: 'Modifica prenotazione',
@@ -78,6 +80,8 @@ export class CreaModificaPrenotazioneComponent implements OnInit {
       this.utentiService.selezionaUtente(this.codiceFiscaleUtentePrenotazione).subscribe(data => {
         this.model = {};
         this.model.utente = data;
+      }, error => {
+        this.error = 'ERRORE: ' + error;
       });
       this.titoloPagina = 'Inserisci una nuova prenotazione';
     }

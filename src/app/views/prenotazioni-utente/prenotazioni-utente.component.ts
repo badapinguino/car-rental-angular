@@ -86,7 +86,7 @@ export class PrenotazioniUtenteComponent implements OnInit {
     {
       nameMaterialIcon: 'delete',
       buttonTypeBootstrap: 'btn-danger',
-      urlRestApi: 'http://localhost:8080/api/prenotazioni/',
+      urlRestApi: 'https://localhost:8443/api/prenotazioni/',
       restApi: RestApi.Delete
     }
   ];

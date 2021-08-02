@@ -16,6 +16,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         window.location.replace('/login');
         // location.reload();
       }
+      if (err.status === 403) {
+        // se risposta è 403 Forbidden lancio un errore
+        const error = 'Non sei autorizzato ad eseguire l\'azione richiesta';
+        return throwError(error);
+      }
       if (err.url.startsWith('https://localhost:8443/api/utenti/') && err.status === 500) {
         const error = 'Codice fiscale non trovato';
         return throwError(error);
